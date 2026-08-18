@@ -105,7 +105,7 @@ $cssPath = __DIR__ . '/assets/css/auth.css';
 $cssVersion =
     file_exists($cssPath) ? filemtime($cssPath) : time();
 
-$baseUrl = '/student_routine_organizer';
+$baseUrl = '/student-routine-organizer';
 $showNavbarScript = false;
 ?>
 
@@ -119,7 +119,7 @@ $showNavbarScript = false;
 
     <title>Register | Student Routine Organizer</title>
 
-    <link rel="stylesheet" href="/student_routine_organizer/assets/css/auth.css?v=<?= $cssVersion ?>">
+    <link rel="stylesheet" href="/student-routine-organizer/assets/css/auth.css?v=<?= $cssVersion ?>">
 </head>
 
 <body class="auth-page">

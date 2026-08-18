@@ -28,7 +28,7 @@ function requireLogin()
             $_SERVER['REQUEST_URI'] ?? null;
 
         header(
-            'Location: /student_routine_organizer/login.php'
+            'Location: /student-routine-organizer/login.php'
         );
         exit;
     }
@@ -40,7 +40,7 @@ function redirectIfAuthenticated()
 
     if (!empty($_SESSION['user_id'])) {
         header(
-            'Location: /student_routine_organizer/exercise/index.php'
+            'Location: /student-routine-organizer/exercise/index.php'
         );
         exit;
     }

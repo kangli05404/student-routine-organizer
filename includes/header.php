@@ -4,7 +4,7 @@ $pageTitle = $pageTitle ?? 'Student Routine Organizer';
 $activePage = $activePage ?? '';
 $pageStylesheet = $pageStylesheet ?? null;
 
-$baseUrl = '/student_routine_organizer';
+$baseUrl = '/student-routine-organizer';
 
 $sharedStylesheetPath =
     __DIR__ . '/../assets/css/shared.css';
