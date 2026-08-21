@@ -5,6 +5,10 @@ require_once __DIR__ . '/includes/auth.php';
 
 requireLogin();
 
+$dashboardUrl = isAdmin()
+    ? '/student-routine-organizer/admin/index.php'
+    : '/student-routine-organizer/index.php';
+
 $userId = (int) $_SESSION['user_id'];
 
 function profileEscape($value)
@@ -28,6 +32,7 @@ $statement = $pdo->prepare(
         name,
         email,
         password_hash,
+        role,
         created_at
      FROM users
      WHERE id = ?
@@ -55,6 +60,9 @@ $passwordErrors = [];
 
 $profileName = $user['name'];
 $profileEmail = $user['email'];
+
+$profileRole =
+    $user['role'] ?? 'student';
 
 $activePanel =
     (
@@ -300,6 +308,16 @@ require_once __DIR__ . '/includes/header.php';
             <?= profileEscape($profileEmail) ?>
         </p>
 
+        <p class="profile-role">
+            <span class="profile-role-badge profile-role-<?= profileEscape(
+                $profileRole
+            ) ?>">
+                <?= profileEscape(
+                    ucfirst($profileRole)
+                ) ?>
+            </span>
+        </p>
+
         <p class="member-since">
             Member since
             <strong>
@@ -389,7 +407,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div class="form-actions">
-                <button class="profile-button" type="submit">
+                <button class="profile-button save-changes-button" type="submit">
                     Save Changes
                 </button>
             </div>

@@ -485,88 +485,45 @@ Password is visible and the crossed eye is displayed.
         translateY(0) scale(0.98);
 }
 
-
-/* =====================================================
-   RESPONSIVE DESIGN
-===================================================== */
-
-@media (max-width: 760px) {
-    .profile-hero {
-        flex-direction: column;
-
-        padding: 30px 22px;
-
-        text-align: center;
-    }
-
-    .profile-avatar {
-        width: 95px;
-        height: 95px;
-
-        font-size: 29px;
-    }
-
-    .profile-identity h1 {
-        font-size: 25px;
-    }
-
-    .profile-tabs {
-        padding: 0;
-    }
-
-    .profile-tab {
-        flex: 1;
-
-        padding: 17px 10px;
-
-        font-size: 14px;
-    }
-
-    .profile-panel {
-        padding: 28px 20px 32px;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .password-grid {
-        margin-top: 20px;
-    }
-
-    .form-actions {
-        justify-content: stretch;
-    }
-
-    .profile-button {
-        width: 100%;
-    }
+.profile-role {
+    margin: 0 0 12px;
 }
 
-@media (max-width: 480px) {
-    .profile-hero {
-        padding: 25px 18px;
-    }
+.profile-role-badge {
+    display: inline-block;
+    padding: 6px 14px;
 
-    .profile-identity h1 {
-        font-size: 22px;
-    }
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
 
-    .profile-email {
-        overflow-wrap: anywhere;
-        font-size: 15px;
-    }
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
 
-    .profile-tab {
-        padding: 15px 7px;
-        font-size: 13px;
-    }
+.profile-role-admin {
+    background: var(--gold);
+    color: var(--purple-dark);
+}
 
-    .profile-panel {
-        padding: 24px 16px 28px;
-    }
+.profile-role-student {
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--white);
+}
 
-    .panel-heading h2 {
-        font-size: 22px;
-    }
+.save-changes-button:hover {
+    background:
+        linear-gradient(135deg,
+            #ffa000 0%,
+            #fb8500 100%);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(251, 133, 0, 0.45);
+}
+
+.save-changes-button:active {
+    transform:
+        translateY(0) scale(0.97);
 }

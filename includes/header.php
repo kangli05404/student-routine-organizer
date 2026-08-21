@@ -1,10 +1,24 @@
 <?php
 
-$pageTitle = $pageTitle ?? 'Student Routine Organizer';
-$activePage = $activePage ?? '';
-$pageStylesheet = $pageStylesheet ?? null;
+require_once __DIR__ . '/auth.php';
 
-$baseUrl = '/student-routine-organizer';
+startSecureSession();
+
+$pageTitle =
+    $pageTitle ?? 'Student Routine Organizer';
+
+$activePage =
+    $activePage ?? '';
+
+$pageStylesheet =
+    $pageStylesheet ?? null;
+
+$baseUrl =
+    '/student-routine-organizer';
+
+$homeUrl = isAdmin()
+    ? $baseUrl . '/admin/index.php'
+    : $baseUrl . '/index.php';
 
 $sharedStylesheetPath =
     __DIR__ . '/../assets/css/shared.css';
@@ -16,8 +30,11 @@ $sharedStylesheetVersion =
 
 function navClass($page, $activePage)
 {
-    return $page === $activePage ? 'active' : '';
+    return $page === $activePage
+        ? 'active'
+        : '';
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -36,21 +53,23 @@ function navClass($page, $activePage)
         ) ?>
     </title>
 
-    <!-- Shared layout and navigation CSS -->
     <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/shared.css?v=<?= $sharedStylesheetVersion ?>">
 
-    <!-- Current module CSS -->
     <?php if ($pageStylesheet): ?>
         <?php
-        $safeStylesheet = basename($pageStylesheet);
+
+        $safeStylesheet =
+            basename($pageStylesheet);
 
         $pageStylesheetPath =
-            __DIR__ . '/../assets/css/' . $safeStylesheet;
+            __DIR__ . '/../assets/css/' .
+            $safeStylesheet;
 
         $pageStylesheetVersion =
             file_exists($pageStylesheetPath)
             ? filemtime($pageStylesheetPath)
             : time();
+
         ?>
 
         <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/<?= htmlspecialchars(
@@ -64,44 +83,68 @@ function navClass($page, $activePage)
 <body>
     <header class="site-header">
         <div class="navbar">
-            <a class="brand" href="<?= $baseUrl ?>/index.php">
+            <a class="brand" href="<?= $homeUrl ?>">
                 Student Routine Organizer
             </a>
 
             <nav class="nav-links" aria-label="Main navigation">
-                <a class="<?= navClass(
-                    'exercise',
-                    $activePage
-                ) ?>" href="<?= $baseUrl ?>/exercise/index.php">
-                    Exercise
-                </a>
+                <?php if (isAdmin()): ?>
+                    <a class="<?= navClass(
+                        'admin',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/admin/index.php">
+                        Admin Dashboard
+                    </a>
 
-                <a class="<?= navClass(
-                    'diary',
-                    $activePage
-                ) ?>" href="<?= $baseUrl ?>/diary/index.php">
-                    Diary
-                </a>
+                    <a class="<?= navClass(
+                        'profile',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/profile.php">
+                        Profile
+                    </a>
+                <?php else: ?>
+                    <a class="<?= navClass(
+                        'dashboard',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/index.php">
+                        Dashboard
+                    </a>
 
-                <a class="<?= navClass(
-                    'money',
-                    $activePage
-                ) ?>" href="<?= $baseUrl ?>/money/index.php">
-                    Money
-                </a>
+                    <a class="<?= navClass(
+                        'exercise',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/exercise/index.php">
+                        Exercise
+                    </a>
 
-                <a class="<?= navClass(
-                    'habit',
-                    $activePage
-                ) ?>" href="<?= $baseUrl ?>/habit/index.php">
-                    Habits
-                </a>
+                    <a class="<?= navClass(
+                        'diary',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/diary/index.php">
+                        Diary
+                    </a>
 
-                <a href="<?= $baseUrl ?>/profile.php" class="<?= ($activePage ?? '') === 'profile'
-                      ? 'active'
-                      : '' ?>">
-                    Profile
-                </a>
+                    <a class="<?= navClass(
+                        'money',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/money/index.php">
+                        Money
+                    </a>
+
+                    <a class="<?= navClass(
+                        'habit',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/habit/index.php">
+                        Habits
+                    </a>
+
+                    <a class="<?= navClass(
+                        'profile',
+                        $activePage
+                    ) ?>" href="<?= $baseUrl ?>/profile.php">
+                        Profile
+                    </a>
+                <?php endif; ?>
 
                 <a class="logout-link" href="<?= $baseUrl ?>/logout.php">
                     Logout

@@ -123,9 +123,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
             }
 
-            $destination =
-                $_SESSION['intended_url']
-                ?? '/student-routine-organizer/index.php';
+            if (isAdmin()) {
+                $destination =
+                    '/student-routine-organizer/admin/index.php';
+            } else {
+                $destination =
+                    $_SESSION['intended_url']
+                    ?? '/student-routine-organizer/index.php';
+            }
 
             unset(
                 $_SESSION['intended_url'],

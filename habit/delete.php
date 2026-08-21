@@ -5,7 +5,7 @@ session_start();
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-requireLogin();
+requireStudent();
 
 $userId = (int) $_SESSION['user_id'];
 
@@ -97,10 +97,11 @@ require_once __DIR__ . '/../includes/header.php';
 
 <div class="delete-card">
     <div class="warning-icon-wrapper" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
         </svg>
     </div>
 
@@ -124,7 +125,8 @@ require_once __DIR__ . '/../includes/header.php';
         <div class="summary-row">
             <span class="summary-label">Status</span>
             <span class="summary-value">
-                <span class="status-badge badge-<?= htmlspecialchars($habit['completion_status'], ENT_QUOTES, 'UTF-8') ?>">
+                <span
+                    class="status-badge badge-<?= htmlspecialchars($habit['completion_status'], ENT_QUOTES, 'UTF-8') ?>">
                     <?= htmlspecialchars(ucfirst($habit['completion_status']), ENT_QUOTES, 'UTF-8') ?>
                 </span>
             </span>
@@ -132,12 +134,14 @@ require_once __DIR__ . '/../includes/header.php';
 
         <div class="summary-row">
             <span class="summary-label">Date Created</span>
-            <span class="summary-value"><?= htmlspecialchars(date('d M Y', strtotime($habit['habit_date'])), ENT_QUOTES, 'UTF-8') ?></span>
+            <span
+                class="summary-value"><?= htmlspecialchars(date('d M Y', strtotime($habit['habit_date'])), ENT_QUOTES, 'UTF-8') ?></span>
         </div>
     </div>
 
     <form method="post">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['delete_habit_token'], ENT_QUOTES, 'UTF-8') ?>">
+        <input type="hidden" name="csrf_token"
+            value="<?= htmlspecialchars($_SESSION['delete_habit_token'], ENT_QUOTES, 'UTF-8') ?>">
 
         <div class="delete-actions">
             <button class="danger-button" type="submit">

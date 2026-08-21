@@ -1,11 +1,11 @@
 <?php
-session_start();
-require_once '../config/database.php';
 
-if (!isset($_SESSION['user_id'])) {
-    die("Please log in first.");
-}
-$user_id = $_SESSION['user_id'];
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+requireStudent();
+
+$user_id = (int) $_SESSION['user_id'];
 
 $stmt = $pdo->prepare("SELECT * FROM diary WHERE user_id = ? ORDER BY journal_date DESC");
 $stmt->execute([$user_id]);

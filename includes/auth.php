@@ -19,11 +19,48 @@ function startSecureSession()
     session_start();
 }
 
-function requireLogin()
+function isAuthenticated()
 {
     startSecureSession();
 
-    if (empty($_SESSION['user_id'])) {
+    $validRoles = ['student', 'admin'];
+
+    return !empty($_SESSION['user_id'])
+        && isset($_SESSION['user_role'])
+        && in_array(
+            $_SESSION['user_role'],
+            $validRoles,
+            true
+        );
+}
+
+function currentUserRole()
+{
+    startSecureSession();
+
+    return $_SESSION['user_role'] ?? null;
+}
+
+function isStudent()
+{
+    return currentUserRole() === 'student';
+}
+
+function isAdmin()
+{
+    return currentUserRole() === 'admin';
+}
+
+function authenticatedHomeUrl()
+{
+    return isAdmin()
+        ? '/student-routine-organizer/admin/index.php'
+        : '/student-routine-organizer/index.php';
+}
+
+function requireLogin()
+{
+    if (!isAuthenticated()) {
         $_SESSION['intended_url'] =
             $_SERVER['REQUEST_URI'] ?? null;
 
@@ -34,13 +71,33 @@ function requireLogin()
     }
 }
 
+function requireRole($requiredRole)
+{
+    requireLogin();
+
+    if (currentUserRole() !== $requiredRole) {
+        header(
+            'Location: ' . authenticatedHomeUrl()
+        );
+        exit;
+    }
+}
+
+function requireStudent()
+{
+    requireRole('student');
+}
+
+function requireAdmin()
+{
+    requireRole('admin');
+}
+
 function redirectIfAuthenticated()
 {
-    startSecureSession();
-
-    if (!empty($_SESSION['user_id'])) {
+    if (isAuthenticated()) {
         header(
-            'Location: /student-routine-organizer/exercise/index.php'
+            'Location: ' . authenticatedHomeUrl()
         );
         exit;
     }
@@ -64,5 +121,8 @@ function isValidAuthToken($token)
 
     return is_string($token)
         && isset($_SESSION['auth_token'])
-        && hash_equals($_SESSION['auth_token'], $token);
+        && hash_equals(
+            $_SESSION['auth_token'],
+            $token
+        );
 }

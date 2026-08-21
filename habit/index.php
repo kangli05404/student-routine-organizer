@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-requireLogin();
+requireStudent();
 
 $userId = (int) $_SESSION['user_id'];
 
@@ -122,7 +122,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 <section class="habit-header-centered">
     <div class="header-box">
-        
+
 
         <h1>My Habit Tracker</h1>
 
@@ -192,27 +192,27 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
 <?php else: ?>
 
-<div class="table-toolbar">
-    <div class="sort-pills-container">
-        <span class="sort-label">Sort by:</span>
-        <div class="sort-pills">
-            <a href="?status=<?= e($statusFilter) ?>&sort=newest" 
-               class="sort-pill <?= $sort === 'newest' ? 'active' : '' ?>">
-               ✨ Newest
-            </a>
-            <a href="?status=<?= e($statusFilter) ?>&sort=oldest" 
-               class="sort-pill <?= $sort === 'oldest' ? 'active' : '' ?>">
-               ⏳ Oldest
-            </a>
-            <a href="?status=<?= e($statusFilter) ?>&sort=name" 
-               class="sort-pill <?= $sort === 'name' ? 'active' : '' ?>">
-               🔤 Name
-            </a>
+    <div class="table-toolbar">
+        <div class="sort-pills-container">
+            <span class="sort-label">Sort by:</span>
+            <div class="sort-pills">
+                <a href="?status=<?= e($statusFilter) ?>&sort=newest"
+                    class="sort-pill <?= $sort === 'newest' ? 'active' : '' ?>">
+                    ✨ Newest
+                </a>
+                <a href="?status=<?= e($statusFilter) ?>&sort=oldest"
+                    class="sort-pill <?= $sort === 'oldest' ? 'active' : '' ?>">
+                    ⏳ Oldest
+                </a>
+                <a href="?status=<?= e($statusFilter) ?>&sort=name"
+                    class="sort-pill <?= $sort === 'name' ? 'active' : '' ?>">
+                    🔤 Name
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="table-wrapper card">
+    <div class="table-wrapper card">
         <table>
             <thead>
                 <tr>

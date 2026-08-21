@@ -1,12 +1,13 @@
 <?php
-session_start();
-require_once '../config/database.php';
 
-if (!isset($_SESSION['user_id']))
-    die("Please log in first.");
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+requireStudent();
+
+$user_id = (int) $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user_id = $_SESSION['user_id'];
     $title = $_POST['title'];
     $content = $_POST['content'];
     $mood = $_POST['mood'];

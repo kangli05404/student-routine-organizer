@@ -1,13 +1,12 @@
 <?php
-session_start();
-require_once '../config/database.php'; 
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php");
-    exit();
-}
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/auth.php';
 
-$user_id = $_SESSION['user_id'];
+requireStudent();
+
+$user_id = (int) $_SESSION['user_id'];
+
 $entry_id = $_GET['id'] ?? null;
 
 if (!$entry_id) {
@@ -18,7 +17,7 @@ if (!$entry_id) {
 // Fetch entry using the simple "?" method
 $stmt = $pdo->prepare("SELECT * FROM diary WHERE id = ? AND user_id = ?");
 $stmt->execute([$entry_id, $user_id]);
-$entry = $stmt->fetch(); 
+$entry = $stmt->fetch();
 
 if (!$entry) {
     header("Location: index.php");
@@ -29,13 +28,14 @@ if (!$entry) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
     $delete_stmt = $pdo->prepare("DELETE FROM diary WHERE id = ? AND user_id = ?");
     $delete_stmt->execute([$entry_id, $user_id]);
-    
+
     header("Location: index.php?msg=deleted");
     exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,10 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
             box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
             transition: all 0.2s ease;
         }
+
         .btn-danger-solid:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(229, 62, 62, 0.4);
         }
+
         .warning-text {
             color: var(--danger);
             font-weight: bold;
@@ -69,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
         }
     </style>
 </head>
+
 <body class="diary-page">
 
     <div id="navbar"></div>
@@ -105,4 +108,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
     </main>
 
 </body>
+
 </html>
