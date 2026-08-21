@@ -6,17 +6,28 @@ require_once __DIR__ . '/config/database.php';
 redirectIfAuthenticated();
 
 $errors = [];
-$name = trim($_POST['name'] ?? '');
-$email = trim($_POST['email'] ?? '');
+
+$name =
+    trim($_POST['name'] ?? '');
+
+$email =
+    trim($_POST['email'] ?? '');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $password = $_POST['password'] ?? '';
+    $password =
+        $_POST['password'] ?? '';
 
     $confirmPassword =
         $_POST['confirm_password'] ?? '';
 
     $acceptedTerms =
         isset($_POST['accepted_terms']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | CSRF Validation
+    |--------------------------------------------------------------------------
+    */
 
     if (
         !isValidAuthToken(
@@ -27,20 +38,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'Your session expired. Please try again.';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Name Validation
+    |--------------------------------------------------------------------------
+    */
+
     if (
         $name === '' ||
         strlen($name) < 2
     ) {
-        $errors[] = 'Please enter your full name.';
+        $errors[] =
+            'Please enter your full name.';
     } elseif (strlen($name) > 100) {
         $errors[] =
             'Name cannot exceed 100 characters.';
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    /*
+    |--------------------------------------------------------------------------
+    | Email Validation
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !filter_var(
+            $email,
+            FILTER_VALIDATE_EMAIL
+        )
+    ) {
         $errors[] =
             'Please enter a valid email address.';
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Validation
+    |--------------------------------------------------------------------------
+    */
 
     if (strlen($password) < 8) {
         $errors[] =
@@ -52,10 +87,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'Password confirmation does not match.';
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Terms Validation
+    |--------------------------------------------------------------------------
+    */
+
     if (!$acceptedTerms) {
         $errors[] =
             'You must agree to the Terms and Privacy notice.';
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Account
+    |--------------------------------------------------------------------------
+    */
 
     if (!$errors) {
         $checkUser = $pdo->prepare(
@@ -65,7 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              LIMIT 1'
         );
 
-        $checkUser->execute([$email]);
+        $checkUser->execute([
+            $email
+        ]);
 
         if ($checkUser->fetch()) {
             $errors[] =
@@ -91,7 +140,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'student'
             ]);
 
-            unset($_SESSION['auth_token']);
+            $_SESSION['registered_email'] = $email;
+
+            unset(
+                $_SESSION['auth_token']
+            );
 
             header(
                 'Location: login.php?registered=1'
@@ -101,12 +154,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$cssPath = __DIR__ . '/assets/css/auth.css';
-$cssVersion =
-    file_exists($cssPath) ? filemtime($cssPath) : time();
+/*
+|--------------------------------------------------------------------------
+| Page Settings
+|--------------------------------------------------------------------------
+*/
 
-$baseUrl = '/student-routine-organizer';
-$showNavbarScript = false;
+$cssPath =
+    __DIR__ . '/assets/css/auth.css';
+
+$cssVersion =
+    file_exists($cssPath)
+    ? filemtime($cssPath)
+    : time();
+
+$baseUrl =
+    '/student-routine-organizer';
+
+$showNavbarScript =
+    false;
+
 ?>
 
 <!DOCTYPE html>
@@ -117,9 +184,11 @@ $showNavbarScript = false;
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Register | Student Routine Organizer</title>
+    <title>
+        Register | Student Routine Organizer
+    </title>
 
-    <link rel="stylesheet" href="/student-routine-organizer/assets/css/auth.css?v=<?= $cssVersion ?>">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/auth.css?v=<?= $cssVersion ?>">
 </head>
 
 <body class="auth-page">
@@ -128,7 +197,9 @@ $showNavbarScript = false;
             Student Routine Organizer
         </a>
 
-        <h1>ACCOUNT</h1>
+        <h1>
+            ACCOUNT
+        </h1>
 
         <nav class="auth-tabs">
             <a href="login.php">
@@ -142,9 +213,11 @@ $showNavbarScript = false;
 
         <section class="auth-card">
             <?php if ($errors): ?>
-                <div class="auth-message error-message">
+                <div class="auth-message error-message" role="alert">
                     <ul>
-                        <?php foreach ($errors as $error): ?>
+                        <?php foreach (
+                            $errors as $error
+                        ): ?>
                             <li>
                                 <?= htmlspecialchars(
                                     $error,
@@ -165,7 +238,9 @@ $showNavbarScript = false;
                 ) ?>">
 
                 <div class="auth-field">
-                    <label for="name">Full name</label>
+                    <label for="name">
+                        Full name
+                    </label>
 
                     <input id="name" type="text" name="name" maxlength="100" autocomplete="name" value="<?= htmlspecialchars(
                         $name,
@@ -175,7 +250,9 @@ $showNavbarScript = false;
                 </div>
 
                 <div class="auth-field">
-                    <label for="email">Email</label>
+                    <label for="email">
+                        Email
+                    </label>
 
                     <input id="email" type="email" name="email" autocomplete="email" value="<?= htmlspecialchars(
                         $email,
@@ -185,7 +262,9 @@ $showNavbarScript = false;
                 </div>
 
                 <div class="auth-field password-field">
-                    <label for="password">Password</label>
+                    <label for="password">
+                        Password
+                    </label>
 
                     <input id="password" type="password" name="password" minlength="8" autocomplete="new-password"
                         required>
@@ -194,12 +273,15 @@ $showNavbarScript = false;
                         aria-label="Show password">
                         <svg class="eye-icon eye-open" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+
                             <circle cx="12" cy="12" r="3" />
                         </svg>
 
                         <svg class="eye-icon eye-closed" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M3 3l18 18" />
+
                             <path d="M10.6 5.2A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.1 3.1" />
+
                             <path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4.1-.9" />
                         </svg>
                     </button>
@@ -213,16 +295,19 @@ $showNavbarScript = false;
                     <input id="confirm_password" type="password" name="confirm_password" minlength="8"
                         autocomplete="new-password" required>
 
-                    <button class="password-toggle" type="button" data-password-toggle="password"
-                        aria-label="Show password">
+                    <button class="password-toggle" type="button" data-password-toggle="confirm_password"
+                        aria-label="Show confirm password">
                         <svg class="eye-icon eye-open" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+
                             <circle cx="12" cy="12" r="3" />
                         </svg>
 
                         <svg class="eye-icon eye-closed" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M3 3l18 18" />
+
                             <path d="M10.6 5.2A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.1 3.1" />
+
                             <path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4.1-.9" />
                         </svg>
                     </button>
@@ -232,7 +317,8 @@ $showNavbarScript = false;
                     <input type="checkbox" name="accepted_terms" required>
 
                     <span>
-                        I agree to the Terms &amp; Privacy notice
+                        I agree to the Terms &amp;
+                        Privacy notice
                     </span>
                 </label>
 
@@ -241,11 +327,11 @@ $showNavbarScript = false;
                 </button>
             </form>
         </section>
-    </main>
 
-    <script src="<?= $baseUrl ?>/assets/js/auth.js"></script>
+        <script src="<?= $baseUrl ?>/assets/js/auth.js"></script>
 
-    <?php require __DIR__ . '/includes/footer.php'; ?>
-</body>
+        <?php
 
-</html>
+        require __DIR__ . '/includes/footer.php';
+
+        ?>

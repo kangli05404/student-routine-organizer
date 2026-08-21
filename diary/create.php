@@ -2,7 +2,8 @@
 session_start();
 require_once '../config/database.php';
 
-if (!isset($_SESSION['user_id'])) die("Please log in first.");
+if (!isset($_SESSION['user_id']))
+    die("Please log in first.");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user_id'];
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         $stmt = $pdo->prepare("INSERT INTO diary (user_id, title, content, mood, journal_date) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$user_id, $title, $content, $mood, $journal_date]);
-        
+
         header("Location: index.php");
         exit();
     } catch (PDOException $e) {
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,25 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../assets/css/diary.css">
     <script src="../assets/js/navbar.js" defer></script>
 </head>
+
 <body class="diary-page">
 
     <div id="navbar"></div>
-    <?php 
-        if (file_exists('../includes/navbar.php')) {
-            include '../includes/navbar.php'; 
-        } elseif (file_exists('../includes/header.php')) {
-            include '../includes/header.php';
-        }
+    <?php
+    if (file_exists('../includes/navbar.php')) {
+        include '../includes/navbar.php';
+    } elseif (file_exists('../includes/header.php')) {
+        include '../includes/header.php';
+    }
     ?>
 
     <main class="diary-wrapper">
-        <a href="index.php" class="btn-back">
-            <span>←</span> Back to Diary List
-        </a>
 
         <div class="form-card">
             <h2>New Diary Entry</h2>
-            
+
             <?php if (isset($error)): ?>
                 <p style="color: var(--danger);"><?php echo htmlspecialchars($error); ?></p>
             <?php endif; ?>
@@ -60,15 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label>Title</label>
                     <input type="text" name="title" class="form-control" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Mood</label>
-                    <input type="text" name="mood" placeholder="e.g., Happy, Calm, Stressed" class="form-control" required>
+                    <input type="text" name="mood" placeholder="e.g., Happy, Calm, Stressed" class="form-control"
+                        required>
                 </div>
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="journal_date" value="<?php echo date('Y-m-d'); ?>" class="form-control" required>
+                    <input type="date" name="journal_date" value="<?php echo date('Y-m-d'); ?>" class="form-control"
+                        required>
                 </div>
 
                 <div class="form-group">
@@ -84,4 +86,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </main>
 </body>
+
 </html>

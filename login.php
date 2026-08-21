@@ -13,13 +13,24 @@ $isPostRequest =
 $rememberedEmail =
     $_COOKIE['remembered_email'] ?? '';
 
+$registeredEmail =
+    $_SESSION['registered_email'] ?? '';
+
+$defaultEmail =
+    $registeredEmail !== ''
+    ? $registeredEmail
+    : $rememberedEmail;
+
 $email = trim(
-    $_POST['email'] ?? $rememberedEmail
+    $_POST['email'] ?? $defaultEmail
 );
 
 $rememberMe = $isPostRequest
     ? isset($_POST['remember_me'])
-    : $rememberedEmail !== '';
+    : (
+        $registeredEmail === ''
+        && $rememberedEmail !== ''
+    );
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
@@ -118,7 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             unset(
                 $_SESSION['intended_url'],
-                $_SESSION['auth_token']
+                $_SESSION['auth_token'],
+                $_SESSION['registered_email']
             );
 
             header('Location: ' . $destination);

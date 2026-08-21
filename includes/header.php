@@ -97,6 +97,12 @@ function navClass($page, $activePage)
                     Habits
                 </a>
 
+                <a href="<?= $baseUrl ?>/profile.php" class="<?= ($activePage ?? '') === 'profile'
+                      ? 'active'
+                      : '' ?>">
+                    Profile
+                </a>
+
                 <a class="logout-link" href="<?= $baseUrl ?>/logout.php">
                     Logout
                 </a>
