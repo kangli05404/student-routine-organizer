@@ -136,9 +136,7 @@ $latest_mood = !empty($entries) ? htmlspecialchars($entries[0]['mood']) : 'None'
 
                             <div class="diary-actions">
                                 <a href="edit.php?id=<?php echo $row['id']; ?>" class="action-edit">Edit</a>
-                                <a href="delete.php?id=<?php echo $row['id']; ?>"
-                                    onclick="return confirm('Are you sure you want to delete this entry?')"
-                                    class="action-delete">Delete</a>
+                                <a href="delete.php?id=<?php echo $row['id']; ?>" class="action-delete">Delete</a>
                             </div>
                         </article>
                     <?php endforeach; ?>
