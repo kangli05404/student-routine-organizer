@@ -9,6 +9,62 @@ $userId = (int) $_SESSION['user_id'];
 
 /*
 |--------------------------------------------------------------------------
+| Undo Delete
+|--------------------------------------------------------------------------
+*/
+
+$undoAvailable = false;
+$undoSecondsRemaining = 0;
+$undoTimeLimit = 20;
+
+if (
+    !empty($_SESSION['last_deleted_exercise']) &&
+    is_array($_SESSION['last_deleted_exercise'])
+) {
+
+    $deletedExercise =
+        $_SESSION['last_deleted_exercise'];
+
+    $deletedAt =
+        (int) ($deletedExercise['deleted_at'] ?? 0);
+
+    $deletedUserId =
+        (int) ($deletedExercise['user_id'] ?? 0);
+
+    $elapsed =
+        time() - $deletedAt;
+
+    if (
+        $deletedAt > 0 &&
+        $deletedUserId === $userId &&
+        $elapsed <= $undoTimeLimit
+    ) {
+
+        $undoAvailable = true;
+
+        $undoSecondsRemaining =
+            max(
+                0,
+                $undoTimeLimit - $elapsed
+            );
+
+    } else {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Undo period has expired
+        |--------------------------------------------------------------------------
+        */
+
+        unset(
+            $_SESSION['last_deleted_exercise'],
+            $_SESSION['undo_exercise_token']
+        );
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
 | Sorting
 |--------------------------------------------------------------------------
 */
@@ -16,12 +72,22 @@ $userId = (int) $_SESSION['user_id'];
 $sort = $_GET['sort'] ?? 'newest';
 
 $sortOptions = [
-    'newest' => 'exercise_date DESC, exercise_id DESC',
-    'longest' => 'duration_minutes DESC, exercise_date DESC',
-    'highest_calories' => 'calories_burned DESC, exercise_date DESC'
+    'newest' =>
+        'exercise_date DESC, exercise_id DESC',
+
+    'longest' =>
+        'duration_minutes DESC, exercise_date DESC',
+
+    'highest_calories' =>
+        'calories_burned DESC, exercise_date DESC'
 ];
 
-if (!array_key_exists($sort, $sortOptions)) {
+if (
+    !array_key_exists(
+        $sort,
+        $sortOptions
+    )
+) {
     $sort = 'newest';
 }
 
@@ -67,8 +133,12 @@ $summaryStatement = $pdo->prepare(
      WHERE user_id = ?'
 );
 
-$summaryStatement->execute([$userId]);
-$summary = $summaryStatement->fetch();
+$summaryStatement->execute([
+    $userId
+]);
+
+$summary =
+    $summaryStatement->fetch();
 
 /*
 |--------------------------------------------------------------------------
@@ -88,8 +158,18 @@ $statement = $pdo->prepare(
      ORDER BY ' . $orderBy
 );
 
-$statement->execute([$userId]);
-$exercises = $statement->fetchAll();
+$statement->execute([
+    $userId
+]);
+
+$exercises =
+    $statement->fetchAll();
+
+/*
+|--------------------------------------------------------------------------
+| HTML escape helper
+|--------------------------------------------------------------------------
+*/
 
 function e($value)
 {
@@ -100,145 +180,356 @@ function e($value)
     );
 }
 
-$pageTitle = 'Exercise Tracker';
-$activePage = 'exercise';
-$pageStylesheet = 'exercise.css';
+/*
+|--------------------------------------------------------------------------
+| Page settings
+|--------------------------------------------------------------------------
+*/
+
+$pageTitle =
+    'Exercise Tracker';
+
+$activePage =
+    'exercise';
+
+$pageStylesheet =
+    'exercise.css';
 
 require_once __DIR__ . '/../includes/header.php';
+
 ?>
 
+
 <section class="exercise-header">
+
     <img class="exercise-mascot" src="../assets/images/exercise-mascot.avif" alt="Exercise mascot">
 
     <div>
-        <h1>My Exercise Records</h1>
+
+        <h1>
+            My Exercise Records
+        </h1>
 
         <p class="page-description">
             Keep track of your workouts, duration,
             and calories burned.
         </p>
+
     </div>
+
 
     <a class="button" href="create.php">
         + Add Exercise Record
     </a>
+
 </section>
 
+
 <section class="exercise-summary">
+
     <article class="summary-card workouts-card">
-        <span class="summary-icon">🏋️</span>
+
+        <span class="summary-icon">
+            🏋️
+        </span>
 
         <div>
+
             <strong>
                 <?= number_format(
                     (int) $summary['total_workouts']
                 ) ?>
             </strong>
 
-            <span>Total Workouts</span>
+            <span>
+                Total Workouts
+            </span>
+
         </div>
+
     </article>
 
+
     <article class="summary-card minutes-card">
-        <span class="summary-icon">⏱️</span>
+
+        <span class="summary-icon">
+            ⏱️
+        </span>
 
         <div>
+
             <strong>
                 <?= number_format(
                     (int) $summary['total_minutes']
                 ) ?>
             </strong>
 
-            <span>Total Minutes</span>
+            <span>
+                Total Minutes
+            </span>
+
         </div>
+
     </article>
 
+
     <article class="summary-card calories-card">
-        <span class="summary-icon">🔥</span>
+
+        <span class="summary-icon">
+            🔥
+        </span>
 
         <div>
+
             <strong>
                 <?= number_format(
                     (int) $summary['total_calories']
                 ) ?>
             </strong>
 
-            <span>Calories Burned</span>
+            <span>
+                Calories Burned
+            </span>
+
         </div>
+
     </article>
 
+
     <article class="summary-card weekly-card">
-        <span class="summary-icon">📅</span>
+
+        <span class="summary-icon">
+            📅
+        </span>
 
         <div>
+
             <strong>
                 <?= number_format(
                     (int) $summary['workouts_this_week']
                 ) ?>
             </strong>
 
-            <span>Workouts This Week</span>
+            <span>
+                Workouts This Week
+            </span>
+
         </div>
+
     </article>
+
 </section>
 
+
+<!-- =====================================================
+     DELETE SUCCESS + UNDO
+===================================================== -->
+
 <?php if (isset($_GET['deleted'])): ?>
-    <p class="success-message">
-        Exercise record <strong>deleted</strong> successfully.
-    </p>
+
+    <div class="success-message delete-success-message">
+
+        <div class="delete-message-content">
+
+            <span>
+                Exercise record
+                <strong>deleted</strong>
+                successfully.
+            </span>
+
+
+            <?php if ($undoAvailable): ?>
+
+                <form class="undo-form" method="post" action="undo.php">
+
+                    <input type="hidden" name="csrf_token" value="<?= e(
+                        $_SESSION['undo_exercise_token']
+                    ) ?>">
+
+                    <button class="undo-button" type="submit">
+                        ↶ Undo
+                    </button>
+
+                </form>
+
+
+                <span class="undo-time">
+                    Available for
+                    <?= e($undoSecondsRemaining) ?>
+                    seconds
+                </span>
+
+            <?php endif; ?>
+
+        </div>
+
+    </div>
+
 <?php endif; ?>
+
+
+<!-- =====================================================
+     RESTORE SUCCESS
+===================================================== -->
+
+<?php if (isset($_GET['restored'])): ?>
+
+    <p class="success-message">
+
+        Exercise record
+        <strong>restored</strong>
+        successfully.
+
+    </p>
+
+<?php endif; ?>
+
+
+<!-- =====================================================
+     UNDO EXPIRED
+===================================================== -->
+
+<?php if (isset($_GET['undo_expired'])): ?>
+
+    <p class="info-message">
+
+        The <strong>Undo</strong> period has expired.
+        The exercise record can no longer be restored.
+
+    </p>
+
+<?php endif; ?>
+
+
+<!-- =====================================================
+     UNDO ERROR
+===================================================== -->
+
+<?php if (isset($_GET['undo_error'])): ?>
+
+    <p class="error-message">
+
+        Unable to restore the exercise record.
+        Please try again.
+
+    </p>
+
+<?php endif; ?>
+
+
+<!-- =====================================================
+     UPDATED MESSAGE
+===================================================== -->
 
 <?php if (isset($_GET['updated'])): ?>
+
     <p class="success-message">
-        Exercise record <strong>updated</strong> successfully.
+
+        Exercise record
+        <strong>updated</strong>
+        successfully.
+
     </p>
+
 <?php endif; ?>
 
+
+<!-- =====================================================
+     CREATED MESSAGE
+===================================================== -->
+
 <?php if (isset($_GET['created'])): ?>
+
     <p class="success-message">
-        Exercise record <strong>added</strong> successfully.
+
+        Exercise record
+        <strong>added</strong>
+        successfully.
+
     </p>
+
 <?php endif; ?>
+
+
+<!-- =====================================================
+     NO RECORDS
+===================================================== -->
 
 <?php if (!$exercises): ?>
 
     <div class="empty-state">
-        <h2>No exercise records yet</h2>
+
+        <h2>
+            No exercise records yet
+        </h2>
 
         <p>
             Add your first workout to begin tracking
             your exercise progress.
         </p>
+
     </div>
+
 
 <?php else: ?>
 
+
+    <!-- =====================================================
+         SORTING
+    ===================================================== -->
+
     <div class="table-toolbar">
+
         <form class="sort-form" method="get">
+
             <label for="sort">
                 Sort records by:
             </label>
 
+
             <select id="sort" name="sort" onchange="this.form.submit()">
-                <option value="newest" <?= $sort === 'newest' ? 'selected' : '' ?>> Newest Date </option>
 
-                <option value="longest" <?= $sort === 'longest' ? 'selected' : '' ?>> Longest Duration </option>
+                <option value="newest" <?= $sort === 'newest'
+                    ? 'selected'
+                    : '' ?>> Newest Date </option>
 
-                <option value="highest_calories" <?= $sort === 'highest_calories' ? 'selected' : '' ?>> Highest Calories
+
+                <option value="longest" <?= $sort === 'longest'
+                    ? 'selected'
+                    : '' ?>> Longest Duration </option>
+
+
+                <option value="highest_calories" <?= $sort === 'highest_calories'
+                    ? 'selected'
+                    : '' ?>> Highest Calories
                 </option>
+
             </select>
 
+
             <noscript>
+
                 <button class="sort-button" type="submit">
                     Apply
                 </button>
+
             </noscript>
+
         </form>
+
     </div>
 
+
+    <!-- =====================================================
+         EXERCISE TABLE
+    ===================================================== -->
+
     <div class="table-wrapper">
+
         <table>
+
             <thead>
+
                 <tr>
                     <th>Activity</th>
                     <th>Duration</th>
@@ -246,59 +537,108 @@ require_once __DIR__ . '/../includes/header.php';
                     <th>Exercise Date</th>
                     <th>Actions</th>
                 </tr>
+
             </thead>
 
+
             <tbody>
-                <?php foreach ($exercises as $exercise): ?>
+
+                <?php foreach (
+                    $exercises as $exercise
+                ): ?>
+
                     <tr>
+
                         <td>
+
                             <span class="activity-name">
-                                <?= e($exercise['activity_type']) ?>
+                                <?= e(
+                                    $exercise['activity_type']
+                                ) ?>
                             </span>
+
                         </td>
 
+
                         <td>
-                            <?= e($exercise['duration_minutes']) ?>
+
+                            <?= e(
+                                $exercise['duration_minutes']
+                            ) ?>
+
                             minutes
+
                         </td>
 
+
                         <td>
-                            <?= e($exercise['calories_burned']) ?>
+
+                            <?= e(
+                                $exercise['calories_burned']
+                            ) ?>
+
                             kcal
+
                         </td>
 
+
                         <td>
+
                             <?= e(
                                 date(
                                     'd M Y',
                                     strtotime(
-                                        $exercise['exercise_date']
+                                        $exercise[
+                                            'exercise_date'
+                                        ]
                                     )
                                 )
                             ) ?>
+
                         </td>
 
+
                         <td>
+
                             <div class="action-buttons">
+
                                 <a class="action-link edit-link" href="edit.php?id=<?= e(
-                                    $exercise['exercise_id']
+                                    $exercise[
+                                        'exercise_id'
+                                    ]
                                 ) ?>">
                                     Edit
                                 </a>
 
+
                                 <a class="action-link delete-link" href="delete.php?id=<?= e(
-                                    $exercise['exercise_id']
+                                    $exercise[
+                                        'exercise_id'
+                                    ]
                                 ) ?>">
                                     Delete
                                 </a>
+
                             </div>
+
                         </td>
+
                     </tr>
+
                 <?php endforeach; ?>
+
             </tbody>
+
         </table>
+
     </div>
+
 
 <?php endif; ?>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+
+<?php
+
+require_once __DIR__ . '/../includes/footer.php';
+
+?>

@@ -873,3 +873,99 @@
 .danger-button:active {
     transform: scale(0.97);
 }
+
+/* =====================================================
+   UNDO DELETE FEATURE
+===================================================== */
+
+.delete-success-message {
+    margin-bottom: 20px;
+}
+
+.delete-message-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.undo-form {
+    width: auto;
+    margin: 0;
+    order: 2;
+}
+
+/* Undo button */
+
+.undo-button {
+    padding: 7px 16px;
+
+    border: 1px solid #146c43;
+    border-radius: 999px;
+
+    background: #ffffff;
+    color: #146c43;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.undo-button:hover {
+    background: #146c43;
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(20, 108, 67, 0.25);
+}
+
+
+.undo-button:active {
+    transform: scale(0.97);
+}
+
+
+/* Undo remaining time */
+
+.undo-time {
+    margin-left: auto;
+
+    color: #4f8069;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    order: 1;
+}
+
+/* Information message */
+
+.info-message {
+    padding: 14px 18px;
+
+    border: 1px solid #8bbbe8;
+    border-radius: 10px;
+
+    background:
+        rgba(235, 246, 255, 0.96);
+
+    color: #245d91;
+
+    line-height: 1.5;
+}
+
+.info-message strong {
+    font-weight: 800;
+    color: #174f80;
+}
