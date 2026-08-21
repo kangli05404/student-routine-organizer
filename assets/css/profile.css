@@ -1,0 +1,572 @@
+/* =====================================================
+   PROFILE HEADER
+===================================================== */
+
+.profile-hero {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+
+    margin-bottom: 28px;
+    padding: 38px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(120deg,
+            rgba(53, 18, 124, 0.96),
+            rgba(99, 56, 201, 0.92));
+
+    color: var(--white);
+
+    box-shadow:
+        0 14px 30px rgba(53, 18, 124, 0.2);
+}
+
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+
+    border: 4px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            var(--gold),
+            #ff9f1c);
+
+    color: var(--purple-dark);
+
+    font-family: 'Audiowide', Arial, sans-serif;
+    font-size: 34px;
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.profile-label {
+    margin: 0 0 7px;
+
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+.profile-identity h1 {
+    margin: 0 0 8px;
+
+    color: var(--white);
+
+    font-family: 'Audiowide', Arial, sans-serif;
+    font-size: 32px;
+}
+
+.profile-email {
+    margin: 0 0 12px;
+
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 17px;
+}
+
+.member-since {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+}
+
+.member-since strong {
+    color: var(--white);
+}
+
+
+/* =====================================================
+   PROFILE CONTENT
+===================================================== */
+
+.profile-content {
+    overflow: hidden;
+
+    border: 1px solid var(--purple-border);
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    box-shadow:
+        0 12px 28px rgba(53, 18, 124, 0.12);
+}
+
+
+/* =====================================================
+   PROFILE TABS
+===================================================== */
+
+.profile-tabs {
+    display: flex;
+
+    padding: 0 28px;
+
+    border-bottom: 1px solid var(--purple-border);
+
+    background: #faf8ff;
+}
+
+.profile-tab {
+    position: relative;
+
+    padding: 20px 24px;
+
+    border: 0;
+
+    background: transparent;
+    color: var(--muted);
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.profile-tab::after {
+    position: absolute;
+    right: 20px;
+    bottom: -1px;
+    left: 20px;
+
+    height: 3px;
+
+    border-radius: 999px 999px 0 0;
+
+    background: var(--gold);
+
+    content: '';
+
+    opacity: 0;
+    transform: scaleX(0);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.profile-tab:hover {
+    color: var(--purple);
+}
+
+.profile-tab.active {
+    color: var(--purple-dark);
+}
+
+.profile-tab.active::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+
+/* =====================================================
+   PROFILE PANELS
+===================================================== */
+
+.profile-panel {
+    display: none;
+    padding: 34px 38px 40px;
+}
+
+.profile-panel.active {
+    display: block;
+
+    animation: panelFade 0.25s ease;
+}
+
+@keyframes panelFade {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.panel-heading {
+    margin-bottom: 28px;
+}
+
+.panel-heading h2 {
+    margin: 0 0 7px;
+
+    color: var(--purple-dark);
+
+    font-family: 'Audiowide', Arial, sans-serif;
+    font-size: 26px;
+}
+
+.panel-heading p {
+    margin: 0;
+
+    color: var(--muted);
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   SUCCESS AND ERROR MESSAGES
+===================================================== */
+
+.profile-message {
+    margin-bottom: 25px;
+    padding: 16px 20px;
+
+    border-radius: 12px;
+
+    line-height: 1.5;
+}
+
+.profile-message ul {
+    margin: 10px 0 0;
+    padding-left: 24px;
+}
+
+.success-message {
+    border: 1px solid #62d49b;
+
+    background: #ebfff4;
+    color: #087347;
+}
+
+.error-message {
+    border: 1px solid #ff98a8;
+
+    background: #fff0f2;
+    color: var(--danger);
+}
+
+
+/* =====================================================
+   PROFILE FORM
+===================================================== */
+
+.profile-form {
+    width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.password-grid {
+    margin-top: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group.full-width {
+    width: 100%;
+}
+
+.form-group label {
+    color: var(--purple-dark);
+
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    min-height: 55px;
+    padding: 13px 16px;
+
+    border: 1px solid var(--purple-border);
+    border-radius: 12px;
+    outline: none;
+
+    background: #fbfaff;
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 16px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-group input:hover {
+    border-color: #bba9ef;
+}
+
+.form-group input:focus {
+    border-color: var(--purple);
+
+    background: var(--white);
+
+    box-shadow:
+        0 0 0 4px rgba(99, 56, 201, 0.12);
+}
+
+
+/* =====================================================
+   PASSWORD FIELD AND EYE ICON
+===================================================== */
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 58px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+    padding: 0;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: var(--purple-dark);
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.password-toggle:hover {
+    background: rgba(99, 56, 201, 0.1);
+    color: var(--purple);
+
+    transform:
+        translateY(-50%) scale(1.08);
+}
+
+.password-toggle:active {
+    transform:
+        translateY(-50%) scale(0.96);
+}
+
+.password-toggle:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 2px;
+}
+
+.eye-icon {
+    width: 24px;
+    height: 24px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    pointer-events: none;
+}
+
+/*
+Normal state:
+Password is hidden and the normal eye is displayed.
+*/
+
+.eye-open {
+    display: block;
+}
+
+.eye-closed {
+    display: none;
+}
+
+/*
+Visible state:
+Password is visible and the crossed eye is displayed.
+*/
+
+.password-toggle.is-visible .eye-open {
+    display: none;
+}
+
+.password-toggle.is-visible .eye-closed {
+    display: block;
+}
+
+.password-help {
+    margin: 14px 0 0;
+
+    color: var(--muted);
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FORM BUTTON
+===================================================== */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 30px;
+}
+
+.profile-button {
+    min-width: 180px;
+    padding: 13px 22px;
+
+    border: 0;
+    border-radius: 999px;
+
+    background:
+        linear-gradient(90deg,
+            var(--gold),
+            #ffae24);
+
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(245, 189, 61, 0.34);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.profile-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 23px rgba(231, 168, 28, 0.42);
+}
+
+.profile-button:active {
+    transform:
+        translateY(0) scale(0.98);
+}
+
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 760px) {
+    .profile-hero {
+        flex-direction: column;
+
+        padding: 30px 22px;
+
+        text-align: center;
+    }
+
+    .profile-avatar {
+        width: 95px;
+        height: 95px;
+
+        font-size: 29px;
+    }
+
+    .profile-identity h1 {
+        font-size: 25px;
+    }
+
+    .profile-tabs {
+        padding: 0;
+    }
+
+    .profile-tab {
+        flex: 1;
+
+        padding: 17px 10px;
+
+        font-size: 14px;
+    }
+
+    .profile-panel {
+        padding: 28px 20px 32px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .password-grid {
+        margin-top: 20px;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .profile-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-hero {
+        padding: 25px 18px;
+    }
+
+    .profile-identity h1 {
+        font-size: 22px;
+    }
+
+    .profile-email {
+        overflow-wrap: anywhere;
+        font-size: 15px;
+    }
+
+    .profile-tab {
+        padding: 15px 7px;
+        font-size: 13px;
+    }
+
+    .profile-panel {
+        padding: 24px 16px 28px;
+    }
+
+    .panel-heading h2 {
+        font-size: 22px;
+    }
+}

@@ -1,0 +1,373 @@
+:root {
+    --purple-light: #f3eefc;
+    --purple-border: #e0d7f5;
+    --purple-primary: #6b46c1;
+    --purple-dark: #35127c;
+    --gold-accent: #ffb703;
+    --gold-hover: #fb8500;
+    --text-color: #2d3748;
+    --danger: #e53e3e;
+}
+
+body.diary-page {
+    background-color: #f7f5fb;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Outer Wrapper */
+.diary-wrapper {
+    max-width: 1050px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* Hero Header Banner */
+.diary-hero-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3eefc 50%, #e8f5e9 100%);
+    border-radius: 24px;
+    padding: 35px 30px;
+    border: 1px solid rgba(224, 215, 245, 0.6);
+    box-shadow: 0 10px 25px rgba(53, 18, 124, 0.05);
+    margin-bottom: 30px;
+}
+
+.hero-main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.hero-mascot {
+    width: 95px;
+    height: 95px;
+    flex-shrink: 0;
+}
+
+.hero-text-box h1 {
+    margin: 0 0 6px 0;
+    color: #1e1b4b;
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.hero-text-box p {
+    margin: 0;
+    color: #555e6d;
+    font-size: 1rem;
+}
+
+.hero-cta {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.btn-add-gold {
+    background: linear-gradient(135deg, #ffb703 0%, #ffa000 100%);
+    color: #1e1b4b;
+    padding: 12px 28px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(255, 183, 3, 0.4);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 183, 3, 0.5);
+    background: linear-gradient(135deg, #ffa000 0%, #fb8500 100%);
+}
+
+/* 3-Column Stat Cards */
+.diary-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.stat-box {
+    background: #ffffff;
+    padding: 18px 20px;
+    border-radius: 18px;
+    border: 1px solid var(--purple-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon-purple {
+    background-color: #f3eefc;
+    color: #6b46c1;
+}
+
+.stat-icon-blue {
+    background-color: #e0f2fe;
+    color: #0284c7;
+}
+
+.stat-icon-green {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.stat-info h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #1e1b4b;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.stat-info p {
+    margin: 3px 0 0 0;
+    color: #64748b;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+/* Feed & Entries Container */
+.diary-feed-container {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid var(--purple-border);
+    box-shadow: 0 10px 25px rgba(53, 18, 124, 0.04);
+}
+
+.diary-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styled Colorful Saved Record Cards */
+.diary-card {
+    background: linear-gradient(135deg, #f5f0fe 0%, #ffffff 100%);
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid var(--purple-border);
+    border-left: 6px solid var(--purple-primary);
+    box-shadow: 0 4px 15px rgba(107, 70, 193, 0.08);
+    transition: all 0.2s ease;
+}
+
+.diary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(107, 70, 193, 0.15);
+    border-color: #c4b5fd;
+    border-left-color: #5b21b6;
+}
+
+.diary-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.diary-card-title {
+    margin: 0;
+    color: var(--purple-dark);
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.mood-badge {
+    background: #e9d5ff;
+    color: #4c1d95;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.1);
+}
+
+.diary-date {
+    color: #7c3aed;
+    display: block;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.diary-content {
+    line-height: 1.6;
+    margin-bottom: 18px;
+    white-space: pre-line;
+    color: #334155;
+}
+
+/* Stylized Action Buttons */
+.diary-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-edit {
+    color: var(--purple-primary);
+    background-color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 18px;
+    border: 1.5px solid var(--purple-primary);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.action-edit:hover {
+    background-color: var(--purple-primary);
+    color: #ffffff;
+}
+
+.action-delete {
+    color: var(--danger);
+    background-color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 18px;
+    border: 1.5px solid var(--danger);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.action-delete:hover {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+/* Empty State */
+.diary-empty {
+    text-align: center;
+    padding: 40px 20px;
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+}
+
+.diary-empty h3 {
+    margin: 0 0 8px 0;
+    color: #1e1b4b;
+}
+
+.diary-empty p {
+    margin: 0;
+    color: #64748b;
+}
+
+/* Form Card Styling */
+.form-card {
+    background: linear-gradient(135deg, #eee7fe 0%, #e2d4f8 100%);
+    padding: 35px;
+    border-radius: 24px;
+    border: 1px solid #c4b5fd;
+    box-shadow: 0 12px 30px rgba(53, 18, 124, 0.12);
+}
+
+.form-card h2 {
+    color: #2e1065;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    border-bottom: 2px solid #c4b5fd;
+    padding-bottom: 12px;
+}
+
+.diary-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 700;
+    color: #35127c;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    padding: 12px 16px;
+    border: 1.5px solid #c4b5fd;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #1e1b4b;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.2);
+    background-color: #ffffff;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--purple-primary) 0%, #5b21b6 100%);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(107, 70, 193, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(107, 70, 193, 0.4);
+}
+
+.btn-cancel {
+    color: #4c1d95;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: rgba(107, 70, 193, 0.1);
+    color: #2e1065;
+}
