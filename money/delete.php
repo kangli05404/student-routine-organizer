@@ -134,22 +134,20 @@ require_once __DIR__ . '/../includes/header.php';
             </div>
             <div>
                 <dt>Date</dt>
-                <dd><?= htmlspecialchars(date('d M Y', strtotime($transaction['transaction_date'])), ENT_QUOTES, 'UTF-8') ?></dd>
+                <dd><?= htmlspecialchars(date('d M Y', strtotime($transaction['transaction_date'])), ENT_QUOTES, 'UTF-8') ?>
+                </dd>
             </div>
             <?php if (!empty($transaction['description'])): ?>
-            <div>
-                <dt>Description</dt>
-                <dd><?= htmlspecialchars($transaction['description'], ENT_QUOTES, 'UTF-8') ?></dd>
-            </div>
+                <div>
+                    <dt>Description</dt>
+                    <dd><?= htmlspecialchars($transaction['description'], ENT_QUOTES, 'UTF-8') ?></dd>
+                </div>
             <?php endif; ?>
         </dl>
 
         <form method="post">
-            <input
-                type="hidden"
-                name="csrf_token"
-                value="<?= htmlspecialchars($_SESSION['delete_transaction_token'], ENT_QUOTES, 'UTF-8') ?>"
-            >
+            <input type="hidden" name="csrf_token"
+                value="<?= htmlspecialchars($_SESSION['delete_transaction_token'], ENT_QUOTES, 'UTF-8') ?>">
             <div class="money-delete-actions">
                 <button type="submit" class="money-danger-button">🗑 Yes, Delete</button>
                 <a href="index.php" class="money-cancel-button">Cancel</a>

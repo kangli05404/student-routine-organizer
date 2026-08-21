@@ -129,12 +129,7 @@ require_once __DIR__ . '/../includes/header.php';
                 <label for="transaction_type">
                     Transaction Type <span class="required">*</span>
                 </label>
-                <select
-                    id="transaction_type"
-                    name="transaction_type"
-                    required
-                    onchange="updateCategories()"
-                >
+                <select id="transaction_type" name="transaction_type" required onchange="updateCategories()">
                     <option value="">Select Type</option>
                     <option value="Income" <?= $transactionType === 'Income' ? 'selected' : '' ?>>Income</option>
                     <option value="Expense" <?= $transactionType === 'Expense' ? 'selected' : '' ?>>Expense</option>
@@ -145,16 +140,8 @@ require_once __DIR__ . '/../includes/header.php';
                 <label for="amount">
                     Amount (RM) <span class="required">*</span>
                 </label>
-                <input
-                    id="amount"
-                    type="number"
-                    name="amount"
-                    step="0.01"
-                    min="0.01"
-                    value="<?= htmlspecialchars($amount, ENT_QUOTES, 'UTF-8') ?>"
-                    placeholder="0.00"
-                    required
-                >
+                <input id="amount" type="number" name="amount" step="0.01" min="0.01"
+                    value="<?= htmlspecialchars($amount, ENT_QUOTES, 'UTF-8') ?>" placeholder="0.00" required>
             </div>
 
             <div class="money-form-group">
@@ -164,37 +151,26 @@ require_once __DIR__ . '/../includes/header.php';
                 <select id="category" name="category" required>
                     <option value="">Select Category</option>
                     <?php foreach ($allCategories as $item): ?>
-                        <option
-                            value="<?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>"
+                        <option value="<?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>"
                             data-type="<?= in_array($item, $incomeCategories) ? 'Income' : 'Expense' ?>"
-                            <?= $category === $item ? 'selected' : '' ?>
-                        >
-                            <?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>
+                            <?= $category === $item ? 'selected' : '' ?>> <?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>
                         </option>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                 </select>
             </div>
 
             <div class="money-form-group">
                 <label for="description">Description</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    placeholder="Enter description (optional)"
-                ><?= htmlspecialchars($description, ENT_QUOTES, 'UTF-8') ?></textarea>
+                <textarea id="description" name="description"
+                    placeholder="Enter description (optional)"><?= htmlspecialchars($description, ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
 
             <div class="money-form-group">
                 <label for="transaction_date">
                     Transaction Date <span class="required">*</span>
                 </label>
-                <input
-                    id="transaction_date"
-                    type="date"
-                    name="transaction_date"
-                    value="<?= htmlspecialchars($transactionDate, ENT_QUOTES, 'UTF-8') ?>"
-                    required
-                >
+                <input id="transaction_date" type="date" name="transaction_date"
+                    value="<?= htmlspecialchars($transactionDate, ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
 
             <div class="money-form-actions">
@@ -239,15 +215,15 @@ require_once __DIR__ . '/../includes/header.php';
             option.value = category;
             option.textContent = category;
             <?php if ($category !== ''): ?>
-            if (category === '<?= addslashes($category) ?>') {
-                option.selected = true;
-            }
+                if (category === '<?= addslashes($category) ?>') {
+                    option.selected = true;
+                }
             <?php endif; ?>
             categorySelect.appendChild(option);
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         updateCategories();
     });
 </script>

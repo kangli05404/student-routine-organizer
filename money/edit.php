@@ -165,14 +165,11 @@ require_once __DIR__ . '/../includes/header.php';
                 <label for="transaction_type">
                     Transaction Type <span class="required">*</span>
                 </label>
-                <select
-                    id="transaction_type"
-                    name="transaction_type"
-                    required
-                    onchange="updateCategories()"
-                >
-                    <option value="Income" <?= $transaction['transaction_type'] === 'Income' ? 'selected' : '' ?>>Income</option>
-                    <option value="Expense" <?= $transaction['transaction_type'] === 'Expense' ? 'selected' : '' ?>>Expense</option>
+                <select id="transaction_type" name="transaction_type" required onchange="updateCategories()">
+                    <option value="Income" <?= $transaction['transaction_type'] === 'Income' ? 'selected' : '' ?>>Income
+                    </option>
+                    <option value="Expense" <?= $transaction['transaction_type'] === 'Expense' ? 'selected' : '' ?>>Expense
+                    </option>
                 </select>
             </div>
 
@@ -180,16 +177,9 @@ require_once __DIR__ . '/../includes/header.php';
                 <label for="amount">
                     Amount (RM) <span class="required">*</span>
                 </label>
-                <input
-                    id="amount"
-                    type="number"
-                    name="amount"
-                    step="0.01"
-                    min="0.01"
-                    value="<?= htmlspecialchars($transaction['amount'], ENT_QUOTES, 'UTF-8') ?>"
-                    placeholder="0.00"
-                    required
-                >
+                <input id="amount" type="number" name="amount" step="0.01" min="0.01"
+                    value="<?= htmlspecialchars($transaction['amount'], ENT_QUOTES, 'UTF-8') ?>" placeholder="0.00"
+                    required>
             </div>
 
             <div class="money-form-group">
@@ -198,11 +188,9 @@ require_once __DIR__ . '/../includes/header.php';
                 </label>
                 <select id="category" name="category" required>
                     <?php foreach ($allCategories as $item): ?>
-                        <option
-                            value="<?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>"
+                        <option value="<?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>"
                             data-type="<?= in_array($item, $incomeCategories) ? 'Income' : 'Expense' ?>"
-                            <?= $transaction['category'] === $item ? 'selected' : '' ?>
-                        >
+                            <?= $transaction['category'] === $item ? 'selected' : '' ?>>
                             <?= htmlspecialchars($item, ENT_QUOTES, 'UTF-8') ?>
                         </option>
                     <?php endforeach; ?>
@@ -211,24 +199,16 @@ require_once __DIR__ . '/../includes/header.php';
 
             <div class="money-form-group">
                 <label for="description">Description</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    placeholder="Enter description (optional)"
-                ><?= htmlspecialchars($transaction['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
+                <textarea id="description" name="description"
+                    placeholder="Enter description (optional)"><?= htmlspecialchars($transaction['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
 
             <div class="money-form-group">
                 <label for="transaction_date">
                     Transaction Date <span class="required">*</span>
                 </label>
-                <input
-                    id="transaction_date"
-                    type="date"
-                    name="transaction_date"
-                    value="<?= htmlspecialchars($transaction['transaction_date'], ENT_QUOTES, 'UTF-8') ?>"
-                    required
-                >
+                <input id="transaction_date" type="date" name="transaction_date"
+                    value="<?= htmlspecialchars($transaction['transaction_date'], ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
 
             <div class="money-form-actions">
@@ -275,7 +255,7 @@ require_once __DIR__ . '/../includes/header.php';
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         updateCategories();
     });
 </script>

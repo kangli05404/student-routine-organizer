@@ -250,8 +250,10 @@ require_once __DIR__ . '/../includes/header.php';
 
                             <td>
                                 <div class="money-action-buttons">
-                                    <a href="edit.php?id=<?= e($transaction['transaction_id']) ?>" class="money-edit-button">Edit</a>
-                                    <a href="delete.php?id=<?= e($transaction['transaction_id']) ?>" class="money-delete-button">Delete</a>
+                                    <a href="edit.php?id=<?= e($transaction['transaction_id']) ?>"
+                                        class="money-edit-button">Edit</a>
+                                    <a href="delete.php?id=<?= e($transaction['transaction_id']) ?>"
+                                        class="money-delete-button">Delete</a>
                                 </div>
                             </td>
                         </tr>
