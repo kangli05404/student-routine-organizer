@@ -53,9 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
 
     <main class="diary-wrapper">
-        <a href="index.php" class="btn-back">
-            <span>←</span> Back to Diary List
-        </a>
 
         <div class="form-card">
             <h2>Edit Diary Entry</h2>
