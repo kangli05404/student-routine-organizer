@@ -198,7 +198,6 @@ require_once __DIR__ . '/../includes/header.php';
             <span class="money-empty-icon">📭</span>
             <h2>No transaction records found</h2>
             <p>Add your first income or expense to start tracking your money.</p>
-            <a href="add.php" class="money-empty-button">+ Add Transaction</a>
         </div>
 
     <?php else: ?>
