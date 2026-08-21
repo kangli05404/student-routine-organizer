@@ -119,38 +119,59 @@ p {
 }
 /* =====================================================
    ADD HABIT BUTTON
-   Warm gold -> orange gradient ties the brand gold CTA
-   to the module's own accent instead of clashing with it.
 ===================================================== */
 
-.btn-add-golden {
-    display: inline-block;
+/* =====================================================
+   ADD HABIT BUTTON
+===================================================== */
 
-    padding: 10px 26px;
+.btn-add-golden,
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px 24px;
 
     border: none;
-    border-radius: 50px;
+    border-radius: 999px;
 
-    background: linear-gradient(135deg, #f5bd3d, var(--habit-accent));
-    color: #2b1200;
+    background: linear-gradient(135deg, #ffb703 0%, #ffa000 100%);
 
-    font-size: 0.9rem;
-    font-weight: 700;
+    color: #1e1b4b;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
     text-decoration: none;
 
-    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+    cursor: pointer;
+
+    box-shadow: 0 4px 14px rgba(255, 183, 3, 0.4);
 
     transition:
-        transform 0.15s ease,
+        transform 0.2s ease,
         box-shadow 0.2s ease,
         filter 0.2s ease;
 }
 
-.btn-add-golden:hover {
-    filter: brightness(0.95);
-    transform: translateY(-1px);
+.btn-add-golden:hover,
+.button:hover {
+    background: linear-gradient(135deg, #ffa000 0%, #fb8500 100%);
 
-    box-shadow: 0 6px 18px rgba(249, 115, 22, 0.45);
+    color: #1e1b4b;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgba(251, 133, 0, 0.45);
+}
+
+.btn-add-golden:active,
+.button:active {
+    transform: translateY(0) scale(0.97);
+
+    box-shadow: 0 3px 9px rgba(251, 133, 0, 0.35);
 }
 
 
