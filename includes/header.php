@@ -4,7 +4,7 @@ $pageTitle = $pageTitle ?? 'Student Routine Organizer';
 $activePage = $activePage ?? '';
 $pageStylesheet = $pageStylesheet ?? null;
 
-$baseUrl = '/student_routine_organizer';
+$baseUrl = '/student-routine-organizer';
 
 $sharedStylesheetPath =
     __DIR__ . '/../assets/css/shared.css';
@@ -95,6 +95,12 @@ function navClass($page, $activePage)
                     $activePage
                 ) ?>" href="<?= $baseUrl ?>/habit/index.php">
                     Habits
+                </a>
+
+                <a href="<?= $baseUrl ?>/profile.php" class="<?= ($activePage ?? '') === 'profile'
+                      ? 'active'
+                      : '' ?>">
+                    Profile
                 </a>
 
                 <a class="logout-link" href="<?= $baseUrl ?>/logout.php">

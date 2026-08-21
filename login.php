@@ -13,13 +13,24 @@ $isPostRequest =
 $rememberedEmail =
     $_COOKIE['remembered_email'] ?? '';
 
+$registeredEmail =
+    $_SESSION['registered_email'] ?? '';
+
+$defaultEmail =
+    $registeredEmail !== ''
+    ? $registeredEmail
+    : $rememberedEmail;
+
 $email = trim(
-    $_POST['email'] ?? $rememberedEmail
+    $_POST['email'] ?? $defaultEmail
 );
 
 $rememberMe = $isPostRequest
     ? isset($_POST['remember_me'])
-    : $rememberedEmail !== '';
+    : (
+        $registeredEmail === ''
+        && $rememberedEmail !== ''
+    );
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
@@ -90,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'expires' =>
                             time() + (30 * 24 * 60 * 60),
                         'path' =>
-                            '/student_routine_organizer',
+                            '/student-routine-organizer',
                         'secure' =>
                             !empty($_SERVER['HTTPS']) &&
                             $_SERVER['HTTPS'] !== 'off',
@@ -105,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     [
                         'expires' => time() - 3600,
                         'path' =>
-                            '/student_routine_organizer',
+                            '/student-routine-organizer',
                         'httponly' => true,
                         'samesite' => 'Lax'
                     ]
@@ -114,11 +125,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $destination =
                 $_SESSION['intended_url']
-                ?? '/student_routine_organizer/index.php';
+                ?? '/student-routine-organizer/index.php';
 
             unset(
                 $_SESSION['intended_url'],
-                $_SESSION['auth_token']
+                $_SESSION['auth_token'],
+                $_SESSION['registered_email']
             );
 
             header('Location: ' . $destination);
@@ -131,7 +143,7 @@ $cssPath = __DIR__ . '/assets/css/auth.css';
 $cssVersion =
     file_exists($cssPath) ? filemtime($cssPath) : time();
 
-$baseUrl = '/student_routine_organizer';
+$baseUrl = '/student-routine-organizer';
 $showNavbarScript = false;
 ?>
 
@@ -145,7 +157,7 @@ $showNavbarScript = false;
 
     <title>Sign In | Student Routine Organizer</title>
 
-    <link rel="stylesheet" href="/student_routine_organizer/assets/css/auth.css?v=<?= $cssVersion ?>">
+    <link rel="stylesheet" href="/student-routine-organizer/assets/css/auth.css?v=<?= $cssVersion ?>">
 </head>
 
 <body class="auth-page">

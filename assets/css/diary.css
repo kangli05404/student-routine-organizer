@@ -24,27 +24,6 @@ body.diary-page {
     padding: 20px;
 }
 
-.btn-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--purple-dark);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 8px 16px;
-    background: #ffffff;
-    border: 1px solid var(--purple-border);
-    border-radius: 12px;
-    transition: all 0.2s ease;
-    margin-bottom: 20px;
-}
-
-.btn-back:hover {
-    background: #f4effc;
-    transform: translateX(-4px);
-}
-
 /* Hero Header Banner */
 .diary-hero-card {
     background: linear-gradient(135deg, #e3f2fd 0%, #f3eefc 50%, #e8f5e9 100%);
@@ -126,7 +105,7 @@ body.diary-page {
     display: flex;
     align-items: center;
     gap: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .stat-icon-wrapper {
@@ -139,9 +118,20 @@ body.diary-page {
     flex-shrink: 0;
 }
 
-.stat-icon-purple { background-color: #f3eefc; color: #6b46c1; }
-.stat-icon-blue   { background-color: #e0f2fe; color: #0284c7; }
-.stat-icon-green  { background-color: #dcfce7; color: #16a34a; }
+.stat-icon-purple {
+    background-color: #f3eefc;
+    color: #6b46c1;
+}
+
+.stat-icon-blue {
+    background-color: #e0f2fe;
+    color: #0284c7;
+}
+
+.stat-icon-green {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
 
 .stat-info h2 {
     margin: 0;

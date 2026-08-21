@@ -1,0 +1,802 @@
+/* =====================================================
+   HABIT MODULE TOKENS
+   Matches the identity already reserved for .habit-module
+   on the dashboard (assets/css/dashboard.css) instead of
+   borrowing purple/blue/green from other modules.
+===================================================== */
+
+:root {
+    --habit-accent: #f97316;
+    --habit-accent-dark: #c2410c;
+    --habit-accent-hover: #ea6a0c;
+    --habit-border: #fed7aa;
+    --habit-tint: #fff7ed;
+    --habit-icon-bg: #ffedd5;
+}
+
+
+/* =====================================================
+   HABIT MODULE BACKGROUND
+===================================================== */
+
+.page-container {
+    position: relative;
+
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.35),
+            rgba(255, 248, 240, 0.55)),
+        url('../images/habit-background.jpg');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card {
+    background: #FFFFFF;
+    border: 1px solid var(--habit-border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(154, 52, 18, 0.05);
+    margin-bottom: 24px;
+}
+
+p {
+    color: #666;
+    margin: 4px 0;
+}
+
+
+/* =====================================================
+   CENTERED HEADER SECTION
+===================================================== */
+
+.habit-header-centered {
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 28px;
+}
+
+.habit-header-centered .header-illustration {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: var(--habit-icon-bg);
+
+    font-size: 32px;
+
+    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.18);
+}
+
+.habit-header-centered h1 {
+    margin: 0 0 6px 0;
+
+    color: #1c1408;
+
+    font-family: 'Audiowide', Arial, sans-serif;
+    font-size: 2.1rem;
+    letter-spacing: 0.3px;
+}
+
+.habit-header-centered .page-description {
+    margin: 0 0 16px 0;
+
+    color: var(--muted, #6e6187);
+    font-size: 0.95rem;
+}
+
+.header-box {
+    background: #ffffff;                       /* Fully opaque background completely blocks noise */
+    border: 2px solid #cf7010;                 /* Primary brand color border */
+    border-radius: 16px;
+    padding: 28px 36px;
+    margin: 0 auto 24px auto;
+    max-width: 650px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(215, 129, 18, 0.1);
+}
+
+/* Ensure text inside the box remains crisp and readable */
+.header-box h1 {
+    margin-top: 2px;
+    margin-bottom: 8px;
+    color: #1e1b4b;
+}
+
+.header-box .page-description {
+    color: #4b5563;
+    margin: 0;
+}
+/* =====================================================
+   ADD HABIT BUTTON
+===================================================== */
+
+/* =====================================================
+   ADD HABIT BUTTON
+===================================================== */
+
+.btn-add-golden,
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px 24px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #ffb703 0%, #ffa000 100%);
+
+    color: #1e1b4b;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 14px rgba(255, 183, 3, 0.4);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.btn-add-golden:hover,
+.button:hover {
+    background: linear-gradient(135deg, #ffa000 0%, #fb8500 100%);
+
+    color: #1e1b4b;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgba(251, 133, 0, 0.45);
+}
+
+.btn-add-golden:active,
+.button:active {
+    transform: translateY(0) scale(0.97);
+
+    box-shadow: 0 3px 9px rgba(251, 133, 0, 0.35);
+}
+
+
+/* =====================================================
+   SUMMARY CARDS (KPIs)
+   One consistent orange family, tinted for hierarchy,
+   instead of borrowing purple/blue/green from other
+   modules.
+===================================================== */
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.summary-card {
+    background: #FFFFFF;
+    border: 1px solid var(--habit-border);
+    border-top: 4px solid var(--habit-accent);
+    border-radius: 12px;
+    padding: 22px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    box-shadow: 0 4px 10px rgba(154, 52, 18, 0.06);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(154, 52, 18, 0.12);
+}
+
+/* Subtle tint variation so the 4 cards read as a family,
+   not four identical blocks (kept in the orange range). */
+.summary-cards .summary-card:nth-child(1) { border-top-color: var(--habit-accent); }
+.summary-cards .summary-card:nth-child(2) { border-top-color: #fb923c; }
+.summary-cards .summary-card:nth-child(3) { border-top-color: #fdba74; }
+.summary-cards .summary-card:nth-child(4) { border-top-color: var(--habit-accent-dark); }
+
+.card-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    background: var(--habit-icon-bg);
+}
+
+.card-icon-wrapper img {
+    height: 26px;
+    width: 26px;
+    object-fit: contain;
+}
+
+.card-value {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #1c1408;
+}
+
+.card-label {
+    display: block;
+    color: #8a5a2b;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+
+.table-toolbar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+}
+
+.sort-pills-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--habit-border);
+}
+
+.sort-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--habit-accent-dark);
+}
+
+.sort-pills {
+    display: flex;
+    gap: 6px;
+}
+
+.sort-pill {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: transparent;
+    color: #6e6187;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sort-pill:hover {
+    background: var(--habit-tint);
+    color: var(--habit-accent-dark);
+}
+
+.sort-pill.active {
+    background: var(--habit-accent);
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(249, 115, 22, 0.3);
+}
+
+
+/* =====================================================
+   HABIT TABLE
+===================================================== */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table-wrapper.card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--habit-border);
+    box-shadow: 0 10px 26px rgba(154, 52, 18, 0.08);
+    overflow: hidden;
+    margin-top: 16px;
+    padding: 0;
+}
+
+.table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+}
+
+.table-wrapper thead {
+    background-color: var(--habit-tint);
+}
+
+.table-wrapper th {
+    padding: 16px 20px;
+
+    color: var(--habit-accent-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    vertical-align: middle;
+}
+
+.table-wrapper td {
+    padding: 16px 20px;
+
+    color: #3d2a15;
+    font-size: 0.9rem;
+
+    border-top: 1px solid #fff1e2;
+
+    vertical-align: middle;
+}
+
+/* Left accent stripe per row: solid when completed,
+   dashed/empty when pending -- the module's own visual
+   cue rather than a plain colored-text badge. */
+.table-wrapper tbody tr {
+    border-left: 4px solid transparent;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.table-wrapper tbody tr:hover {
+    background: var(--habit-tint);
+}
+
+.table-wrapper tbody tr:has(.badge-completed) {
+    border-left-color: var(--habit-accent);
+}
+
+.table-wrapper tbody tr:has(.badge-pending) {
+    border-left-color: #fcd9b6;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+/* Long, unbreakable text (e.g. a habit name typed with
+   no spaces) would otherwise overflow past its column's
+   fixed width and visually bleed into the next column.
+   Truncate with an ellipsis instead; the full text is
+   still available via the title="" tooltip. */
+.col-habit-name,
+.col-frequency {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.col-habit-name {
+    font-weight: 700;
+    color: #1c1408;
+}
+
+.col-frequency {
+    color: #7c6650;
+}
+
+.col-date {
+    font-size: 0.88rem;
+    color: #8a5a2b;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   STATUS INDICATOR
+   Checklist-style dot instead of a plain colored badge --
+   a small filled/empty circle reads as "checked off",
+   which fits a habit tracker better than a data-log pill.
+===================================================== */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 14px 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-badge::before {
+    content: '';
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.badge-completed {
+    background-color: var(--habit-tint);
+    color: var(--habit-accent-dark);
+}
+
+.badge-completed::before {
+    background: var(--habit-accent);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.badge-pending {
+    background-color: #fdf2e9;
+    color: #b45f1f;
+}
+
+.badge-pending::before {
+    border: 2px solid #f0b073;
+    background: transparent;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.action-link {
+    display: inline-block;
+    padding: 6px 16px;
+
+    border-radius: 9999px;
+    border: 1.5px solid transparent;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: all 0.15s ease;
+}
+
+.edit-link {
+    border-color: var(--habit-accent);
+    color: var(--habit-accent-dark);
+    background-color: var(--habit-tint);
+}
+
+.edit-link:hover {
+    background-color: var(--habit-border);
+}
+
+.delete-link {
+    border-color: #f87171;
+    color: #b91c1c;
+    background-color: #fef2f2;
+}
+
+.delete-link:hover {
+    background-color: #fee2e2;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-state {
+    padding: 60px 24px;
+
+    border: 2px dashed var(--habit-border);
+    border-radius: 14px;
+
+    background: var(--habit-tint);
+
+    text-align: center;
+}
+
+.empty-state h2 {
+    margin-top: 0;
+    color: var(--habit-accent-dark);
+}
+
+.empty-state p {
+    margin: 0;
+    color: #8a5a2b;
+}
+
+
+/* =====================================================
+   FORM PAGES (ADD / EDIT)
+===================================================== */
+
+.form-page-header {
+    margin-bottom: 26px;
+    text-align: center;
+}
+
+.form-page-header h1,
+.delete-page-header h1 {
+    margin: 0 0 10px;
+
+    color: #1c1408;
+
+    font-family: 'Audiowide', Arial, sans-serif;
+    font-size: 28px;
+}
+
+.form-page-header p,
+.delete-page-header p {
+    margin: 0;
+    color: var(--muted, #6e6187);
+}
+
+.form-card {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 30px;
+
+    border: 1px solid var(--habit-border);
+    border-radius: 16px;
+
+    background: rgba(255, 247, 237, 0.9);
+
+    box-shadow: 0 8px 24px rgba(154, 52, 18, 0.08);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 22px;
+    margin-bottom: 24px;
+}
+
+.form-group-full {
+    grid-column: span 2;
+}
+
+.form-group label {
+    display: inline-block;
+    margin-bottom: 8px;
+
+    color: var(--habit-accent-dark);
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+
+    border: 1px solid var(--habit-border);
+    border-radius: 9px;
+
+    background: #fff;
+    color: #1c1408;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--habit-accent);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.save-button,
+.cancel-button {
+    padding: 10px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+/* Primary Action: Solid Warm Accent */
+.save-button {
+    border: none;
+    background: linear-gradient(135deg, #f5bd3d, var(--habit-accent));
+    color: #2b1200;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+}
+
+.save-button:hover {
+    filter: brightness(0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(249, 115, 22, 0.4);
+}
+
+.cancel-button {
+    padding: 10px 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--habit-border);
+    border-radius: 999px;
+
+    background: #fff;
+    color: var(--habit-accent-dark);
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cancel-button:hover {
+    background: var(--habit-tint);
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   DELETE PAGE
+===================================================== */
+
+.delete-page-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.delete-card {
+    max-width: 520px;
+    margin: 0 auto 32px auto;
+    padding: 32px 28px;
+
+    background: #ffffff;
+    border: 1px solid #fecdd3;
+    border-top: 5px solid #ef4444;
+    border-radius: 18px;
+    text-align: center;
+
+    box-shadow: 0 12px 32px rgba(225, 29, 72, 0.12);
+}
+
+.warning-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 14px auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: #fee2e2;
+    color: #dc2626;
+
+    box-shadow: 0 0 0 6px #fef2f2;
+}
+
+.delete-card h2 {
+    margin: 0 0 6px 0;
+    color: #1e1b4b;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.delete-warning {
+    margin: 0 0 22px 0;
+    color: #9f1239;
+    font-size: 0.9rem;
+}
+
+/* Structured Record Row Card */
+.record-summary-box {
+    background-color: #fff8f8;
+    border: 1px solid #ffe4e6;
+    border-radius: 12px;
+    padding: 6px 18px;
+    margin-bottom: 26px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px; /* Prevents text from colliding */
+    padding: 12px 0;
+    border-bottom: 1px solid #fecdd3;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #851e3e;
+    text-align: left;
+    flex-shrink: 0; /* Prevents the label from shrinking or wrapping awkwardly */
+}
+
+.summary-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1c1408;
+    text-align: right;
+    
+    /* Fixes overflow for long unbroken strings */
+    min-width: 0; 
+    overflow-wrap: anywhere;
+    word-break: break-word; 
+}
+
+/* Buttons */
+.delete-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.danger-button {
+    padding: 11px 24px;
+    border: none;
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.danger-button:hover {
+    filter: brightness(0.92);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
+}
+
