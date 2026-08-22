@@ -21,6 +21,16 @@ foreach ($entries as $entry) {
 }
 
 $latest_mood = !empty($entries) ? htmlspecialchars($entries[0]['mood']) : 'None';
+
+/*
+|--------------------------------------------------------------------------
+| Page Settings
+|--------------------------------------------------------------------------
+*/
+$pageTitle = 'Diary Journal - Student Routine Organizer';
+$activePage = 'diary'; // Activates the yellow navigation highlight
+$pageStylesheet = 'diary.css';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,15 +38,13 @@ $latest_mood = !empty($entries) ? htmlspecialchars($entries[0]['mood']) : 'None'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diary Journal - Student Routine Organizer</title>
+    <title><?php echo $pageTitle; ?></title>
     <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="../assets/css/diary.css">
-    <script src="../assets/js/navbar.js" defer></script>
 </head>
 
 <body class="diary-page">
 
-    <div id="navbar"></div>
     <?php
     if (file_exists('../includes/navbar.php')) {
         include '../includes/navbar.php';

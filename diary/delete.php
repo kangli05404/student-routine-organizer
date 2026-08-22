@@ -32,6 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
     header("Location: index.php?msg=deleted");
     exit();
 }
+
+/*
+|--------------------------------------------------------------------------
+| Page Settings
+|--------------------------------------------------------------------------
+*/
+$pageTitle = 'Delete Diary Entry - Student Routine Organizer';
+$activePage = 'diary'; // Activates the yellow navigation highlight
+$pageStylesheet = 'diary.css';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,10 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Diary Entry - Student Routine Organizer</title>
+    <title><?php echo $pageTitle; ?></title>
     <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="../assets/css/diary.css">
-    <script src="../assets/js/navbar.js" defer></script>
     <style>
         /* A custom red button specifically for this delete page based on your CSS style */
         .btn-danger-solid {
@@ -74,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
 
 <body class="diary-page">
 
-    <div id="navbar"></div>
     <?php
     if (file_exists('../includes/navbar.php')) {
         include '../includes/navbar.php';

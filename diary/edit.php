@@ -16,8 +16,9 @@ $stmt = $pdo->prepare("SELECT * FROM diary WHERE id = ? AND user_id = ?");
 $stmt->execute([$id, $user_id]);
 $entry = $stmt->fetch();
 
-if (!$entry)
+if (!$entry) {
     die("Entry not found or unauthorized.");
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
@@ -35,6 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Error updating entry: " . $e->getMessage();
     }
 }
+
+/*
+|--------------------------------------------------------------------------
+| Page Settings
+|--------------------------------------------------------------------------
+*/
+$pageTitle = 'Edit Entry - Diary Journal';
+$activePage = 'diary';
+$pageStylesheet = 'diary.css';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,15 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Entry - Diary Journal</title>
+    <title><?php echo $pageTitle; ?></title>
     <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="../assets/css/diary.css">
-    <script src="../assets/js/navbar.js" defer></script>
 </head>
 
 <body class="diary-page">
 
-    <div id="navbar"></div>
     <?php
     if (file_exists('../includes/navbar.php')) {
         include '../includes/navbar.php';
@@ -70,14 +79,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <form method="POST" action="edit.php?id=<?php echo $id; ?>" class="diary-form">
                 <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" name="title" value="<?php echo htmlspecialchars($entry['title']); ?>"
+                    <label>
+                        Title 
+                        <small class="char-count" id="titleCount">0/100</small>
+                    </label>
+                    <input type="text" name="title" id="titleInput" maxlength="100" value="<?php echo htmlspecialchars($entry['title']); ?>"
                         class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Mood</label>
-                    <input type="text" name="mood" value="<?php echo htmlspecialchars($entry['mood']); ?>"
+                    <label>
+                        Mood 
+                        <small class="char-count" id="moodCount">0/30</small>
+                    </label>
+                    <input type="text" name="mood" id="moodInput" maxlength="30" value="<?php echo htmlspecialchars($entry['mood']); ?>"
                         class="form-control" required>
                 </div>
 
@@ -88,8 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
 
                 <div class="form-group">
-                    <label>Content</label>
-                    <textarea name="content" rows="6" class="form-control"
+                    <label>
+                        Content 
+                        <small class="char-count" id="contentCount">0/2000</small>
+                    </label>
+                    <textarea name="content" id="contentInput" maxlength="2000" rows="6" class="form-control"
                         required><?php echo htmlspecialchars($entry['content']); ?></textarea>
                 </div>
 
@@ -100,6 +118,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </main>
+
+    <script>
+        function setupCharCounter(inputId, counterId, maxLength) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById(counterId);
+
+            if (!input || !counter) return;
+
+            function updateCount() {
+                const currentLength = input.value.length;
+                counter.textContent = `${currentLength}/${maxLength}`;
+
+                if (currentLength >= maxLength) {
+                    counter.style.color = 'var(--danger)';
+                    counter.style.fontWeight = 'bold';
+                } else {
+                    counter.style.color = '#64748b';
+                    counter.style.fontWeight = 'normal';
+                }
+            }
+
+            input.addEventListener('input', updateCount);
+            updateCount(); // Calculates length for existing entry content on load
+        }
+
+        setupCharCounter('titleInput', 'titleCount', 100);
+        setupCharCounter('moodInput', 'moodCount', 30);
+        setupCharCounter('contentInput', 'contentCount', 2000);
+    </script>
 </body>
 
 </html>
