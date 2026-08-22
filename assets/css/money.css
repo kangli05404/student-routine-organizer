@@ -8,12 +8,12 @@
 
 /* ---------- Header Frame ---------- */
 .money-header-frame {
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
     border-radius: 13px;
     padding: 40px 20px 20px 20px;
     margin-bottom: 20px;
     background: var(--white);
-    box-shadow: 0 4px 16px rgba(201, 56, 118, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 137, 123, 0.08);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -33,7 +33,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #d94a8b;
+    color: #00897b;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -44,7 +44,7 @@
 .money-label::before {
     content: '◆';
     font-size: 8px;
-    color: var(--gold);
+    color: #ffb300;
 }
 
 .money-header h1 {
@@ -67,23 +67,23 @@
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    background: linear-gradient(135deg, #ffb703 0%, #ffa000 100%);
+    background: linear-gradient(135deg, #ffb300 0%, #ff8f00 100%);
     color: var(--text);
     margin-top: 8px;
     padding: 12px 24px;
     border-radius: 999px;
     font-size: 14px;
     font-weight: 700;
-    box-shadow: 0 4px 14px rgba(255, 183, 3, 0.4);
+    box-shadow: 0 4px 14px rgba(255, 179, 0, 0.4);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
     border: none;
 }
 
 .money-add-button:hover {
-    background: linear-gradient(135deg, #ffa000 0%, #fb8500 100%);
+    background: linear-gradient(135deg, #ff8f00 0%, #e65100 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255, 183, 3, 0.5);
+    box-shadow: 0 6px 18px rgba(255, 179, 0, 0.5);
 }
 
 .money-add-button::before {
@@ -110,14 +110,14 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    box-shadow: 0 3px 12px rgba(201, 56, 118, 0.08);
-    border: 1px solid #f0d0df;
+    box-shadow: 0 3px 12px rgba(0, 137, 123, 0.08);
+    border: 1px solid #b2dfdb;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .money-summary-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(201, 56, 118, 0.14);
+    box-shadow: 0 8px 24px rgba(0, 137, 123, 0.14);
 }
 
 .money-summary-icon {
@@ -198,7 +198,7 @@
 
 /* ---------- Filter ---------- */
 .money-filter-card {
-    background: #fdf2f6;
+    background: #f0f9f7;
     border-radius: 13px;
     padding: 16px 20px;
     margin-bottom: 20px;
@@ -206,7 +206,7 @@
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
     position: relative;
     z-index: 1;
 }
@@ -228,7 +228,7 @@
 
 .money-filter-form select {
     padding: 8px 16px;
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
     border-radius: 8px;
     background: var(--white);
     color: var(--text);
@@ -238,7 +238,7 @@
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 140px;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2335127c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2300879b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     padding-right: 36px;
@@ -246,8 +246,8 @@
 }
 
 .money-filter-form select:focus {
-    border-color: #d94a8b;
-    box-shadow: 0 0 0 3px rgba(201, 56, 118, 0.12);
+    border-color: #00897b;
+    box-shadow: 0 0 0 3px rgba(0, 137, 123, 0.12);
 }
 
 .money-reset-button {
@@ -261,8 +261,8 @@
 }
 
 .money-reset-button:hover {
-    background: rgba(201, 56, 118, 0.08);
-    color: #d94a8b;
+    background: rgba(0, 137, 123, 0.08);
+    color: #00897b;
 }
 
 /* ---------- Records Table ---------- */
@@ -270,7 +270,7 @@
     background: var(--white);
     border-radius: 13px;
     overflow: hidden;
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
     position: relative;
     z-index: 1;
 }
@@ -280,7 +280,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid #f0d0df;
+    border-bottom: 1px solid #b2dfdb;
     flex-wrap: wrap;
     gap: 12px;
 }
@@ -294,7 +294,7 @@
 .money-records-count {
     font-size: 13px;
     color: var(--muted);
-    background: #fdf2f6;
+    background: #f0f9f7;
     padding: 2px 12px;
     border-radius: 20px;
     font-weight: 600;
@@ -313,7 +313,7 @@
 }
 
 .money-table thead {
-    background: #fdf2f6;
+    background: #f0f9f7;
 }
 
 .money-table th {
@@ -321,15 +321,15 @@
     text-align: left;
     font-weight: 700;
     font-size: 12px;
-    color: #a62a5c;
+    color: #00695c;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid #f0d0df;
+    border-bottom: 1px solid #b2dfdb;
 }
 
 .money-table td {
     padding: 14px 16px;
-    border-bottom: 1px solid #f7e8ef;
+    border-bottom: 1px solid #e0f2f1;
     color: var(--text);
     vertical-align: middle;
 }
@@ -339,7 +339,7 @@
 }
 
 .money-table tbody tr:hover {
-    background: #fdf2f6;
+    background: #f0f9f7;
 }
 
 .money-table tbody tr:last-child td {
@@ -542,8 +542,8 @@
     background: var(--white);
     border-radius: 18px;
     padding: 32px;
-    box-shadow: 0 10px 30px rgba(201, 56, 118, 0.10);
-    border: 1px solid #f0d0df;
+    box-shadow: 0 10px 30px rgba(0, 137, 123, 0.10);
+    border: 1px solid #b2dfdb;
 }
 
 .money-form-card form {
@@ -574,7 +574,7 @@
 .money-form-group textarea {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
     border-radius: 10px;
     background: var(--white);
     color: var(--text);
@@ -587,8 +587,8 @@
 .money-form-group input:focus,
 .money-form-group select:focus,
 .money-form-group textarea:focus {
-    border-color: #d94a8b;
-    box-shadow: 0 0 0 3px rgba(201, 56, 118, 0.12);
+    border-color: #00897b;
+    box-shadow: 0 0 0 3px rgba(0, 137, 123, 0.12);
 }
 
 .money-form-group textarea {
@@ -614,7 +614,7 @@
     align-items: center;
     gap: 8px;
     border: none;
-    background: #d94a8b;
+    background: #00897b;
     color: var(--white);
     padding: 12px 28px;
     border-radius: 999px;
@@ -627,9 +627,9 @@
 }
 
 .money-save-button:hover {
-    background: #c93876;
+    background: #00695c;
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(201, 56, 118, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 137, 123, 0.08);
 }
 
 .money-cancel-button {
@@ -642,15 +642,15 @@
     border-radius: 999px;
     font-weight: 600;
     font-size: 14px;
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: var(--white);
     min-width: 100px;
 }
 
 .money-cancel-button:hover {
-    background: #fdf2f6;
-    border-color: #d94a8b;
+    background: #f0f9f7;
+    border-color: #00897b;
 }
 
 /* ---------- Error ---------- */
@@ -685,8 +685,8 @@
     border-radius: 18px;
     padding: 40px 36px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(201, 56, 118, 0.10);
-    border: 1px solid #f0d0df;
+    box-shadow: 0 10px 30px rgba(0, 137, 123, 0.10);
+    border: 1px solid #b2dfdb;
 }
 
 .money-warning-icon {
@@ -719,10 +719,10 @@
     max-width: 400px;
     margin: 0 auto 28px;
     text-align: left;
-    background: #fdf2f6;
+    background: #f0f9f7;
     border-radius: 13px;
     padding: 16px 20px;
-    border: 1px solid #f0d0df;
+    border: 1px solid #b2dfdb;
 }
 
 .money-record-summary div {
@@ -730,7 +730,7 @@
     justify-content: space-between;
     gap: 20px;
     padding: 8px 0;
-    border-bottom: 1px solid #f0d0df;
+    border-bottom: 1px solid #b2dfdb;
     overflow: hidden;
 }
 

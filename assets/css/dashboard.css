@@ -183,7 +183,7 @@
 
 .ql-exercise:hover { background: #3b82f6; color: #ffffff; }
 .ql-diary:hover { background: #8b5cf6; color: #ffffff; }
-.ql-money:hover { background: #e91e63; color: #ffffff; }
+.ql-money:hover { background: #00897b; color: #ffffff; }
 .ql-habit:hover { background: #f59e0b; color: #ffffff; }
 
 .admin-box {
@@ -542,19 +542,19 @@
 .mod-btn-purple { background: #8b5cf6; color: #ffffff; }
 .mod-btn-purple:hover { background: #7c3aed; }
 
-/* Money Theme - Soft Pink Tint */
+/* Money Theme - Soft Mint Green Tint */
 .mod-card.mod-money,
 .dashboard-modal-card.mod-money {
-    background: linear-gradient(135deg, #ffffff 15%, #fce4ec 100%);
-    border: 1px solid #fbcfe8;
+    background: linear-gradient(135deg, #ffffff 15%, #e0f2f1 100%);
+    border: 1px solid #b2dfdb;
 }
 .mod-card.mod-money:hover {
-    background: linear-gradient(135deg, #ffffff 5%, #fce7f3 100%);
-    border-color: #e91e63;
+    background: linear-gradient(135deg, #ffffff 5%, #b2dfdb 100%);
+    border-color: #00897b;
 }
-.mod-money .mod-link:hover { color: #e91e63; }
-.mod-btn-pink { background: #e91e63; color: #ffffff; }
-.mod-btn-pink:hover { background: #d81b60; }
+.mod-money .mod-link:hover { color: #00897b; }
+.mod-btn-mint { background: #00897b; color: #ffffff; }
+.mod-btn-mint:hover { background: #00695c; }
 
 /* Habit Theme - Soft Amber Tint */
 .mod-card.mod-habit,
