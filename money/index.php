@@ -7,21 +7,40 @@ requireStudent();
 
 $userId = (int) $_SESSION['user_id'];
 
-/*
-|--------------------------------------------------------------------------
-| Filter
-|--------------------------------------------------------------------------
-*/
-
+// Filter
 $type = $_GET['type'] ?? '';
 $category = $_GET['category'] ?? '';
+$year = $_GET['year'] ?? '';
+$month = $_GET['month'] ?? '';
 
-/*
-|--------------------------------------------------------------------------
-| Transaction Records
-|--------------------------------------------------------------------------
-*/
+// Get available years
+$yearStmt = $pdo->prepare(
+    'SELECT DISTINCT YEAR(transaction_date) AS year
+     FROM transactions
+     WHERE user_id = ?
+     ORDER BY year DESC'
+);
+$yearStmt->execute([$userId]);
+$availableYears = $yearStmt->fetchAll(PDO::FETCH_COLUMN);
 
+// Get available months for selected year
+$monthSql = 'SELECT DISTINCT MONTH(transaction_date) AS month
+             FROM transactions
+             WHERE user_id = ?';
+$monthParams = [$userId];
+
+if ($year !== '') {
+    $monthSql .= ' AND YEAR(transaction_date) = ?';
+    $monthParams[] = (int) $year;
+}
+
+$monthSql .= ' ORDER BY month ASC';
+
+$monthStmt = $pdo->prepare($monthSql);
+$monthStmt->execute($monthParams);
+$availableMonths = $monthStmt->fetchAll(PDO::FETCH_COLUMN);
+
+// Transaction Records
 $sql = '
     SELECT
         transaction_id,
@@ -49,6 +68,18 @@ if ($category !== '') {
     $types .= 's';
 }
 
+if ($year !== '') {
+    $sql .= ' AND YEAR(transaction_date) = ?';
+    $params[] = (int) $year;
+    $types .= 'i';
+}
+
+if ($month !== '') {
+    $sql .= ' AND MONTH(transaction_date) = ?';
+    $params[] = (int) $month;
+    $types .= 'i';
+}
+
 $sql .= '
     ORDER BY
         transaction_date DESC,
@@ -59,12 +90,7 @@ $statement = $pdo->prepare($sql);
 $statement->execute($params);
 $transactions = $statement->fetchAll();
 
-/*
-|--------------------------------------------------------------------------
-| Total Income
-|--------------------------------------------------------------------------
-*/
-
+// Total Income (no filter)
 $incomeStatement = $pdo->prepare(
     'SELECT COALESCE(SUM(amount), 0)
      FROM transactions
@@ -74,12 +100,7 @@ $incomeStatement = $pdo->prepare(
 $incomeStatement->execute([$userId]);
 $totalIncome = (float) $incomeStatement->fetchColumn();
 
-/*
-|--------------------------------------------------------------------------
-| Total Expense
-|--------------------------------------------------------------------------
-*/
-
+// Total Expense (no filter)
 $expenseStatement = $pdo->prepare(
     'SELECT COALESCE(SUM(amount), 0)
      FROM transactions
@@ -89,20 +110,10 @@ $expenseStatement = $pdo->prepare(
 $expenseStatement->execute([$userId]);
 $totalExpense = (float) $expenseStatement->fetchColumn();
 
-/*
-|--------------------------------------------------------------------------
-| Balance
-|--------------------------------------------------------------------------
-*/
-
+// Balance
 $balance = $totalIncome - $totalExpense;
 
-/*
-|--------------------------------------------------------------------------
-| Helper
-|--------------------------------------------------------------------------
-*/
-
+// Helper
 function e($value)
 {
     return htmlspecialchars(
@@ -112,12 +123,7 @@ function e($value)
     );
 }
 
-/*
-|--------------------------------------------------------------------------
-| Page
-|--------------------------------------------------------------------------
-*/
-
+// Page
 $pageTitle = 'Money Tracker';
 $activePage = 'money';
 $pageStylesheet = 'money.css';
@@ -174,12 +180,37 @@ require_once __DIR__ . '/../includes/header.php';
 <!-- Filter -->
 <section class="money-filter-card">
     <span class="money-filter-title">🔍 Filter</span>
-    <form method="get" class="money-filter-form">
+    <form method="get" class="money-filter-form" id="filterForm">
         <select name="type" onchange="this.form.submit()">
             <option value="">All Types</option>
             <option value="Income" <?= $type === 'Income' ? 'selected' : '' ?>>Income</option>
             <option value="Expense" <?= $type === 'Expense' ? 'selected' : '' ?>>Expense</option>
         </select>
+
+        <select name="year" onchange="this.form.submit()">
+            <option value="">All Years</option>
+            <?php foreach ($availableYears as $y): ?>
+                <option value="<?= $y ?>" <?= $year == $y ? 'selected' : '' ?>>
+                    <?= $y ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <?php if (!empty($availableMonths) || $year !== ''): ?>
+            <select name="month" onchange="this.form.submit()">
+                <option value="">All Months</option>
+                <?php foreach ($availableMonths as $m): ?>
+                    <option value="<?= $m ?>" <?= $month == $m ? 'selected' : '' ?>>
+                        <?= date('F', mktime(0, 0, 0, $m, 1)) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        <?php else: ?>
+            <select name="month" disabled>
+                <option value="">No months available</option>
+            </select>
+        <?php endif; ?>
+
         <a href="index.php" class="money-reset-button">Reset</a>
     </form>
 </section>
