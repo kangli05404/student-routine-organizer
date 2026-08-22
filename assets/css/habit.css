@@ -80,23 +80,6 @@ p {
     margin-bottom: 28px;
 }
 
-.habit-header-centered .header-illustration {
-    width: 68px;
-    height: 68px;
-    margin-bottom: 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background: var(--habit-icon-bg);
-
-    font-size: 32px;
-
-    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.18);
-}
-
 .habit-header-centered h1 {
     margin: 0 0 6px 0;
 

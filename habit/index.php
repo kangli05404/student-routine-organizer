@@ -7,11 +7,7 @@ requireStudent();
 
 $userId = (int) $_SESSION['user_id'];
 
-/*
-|--------------------------------------------------------------------------
-| Summary Data (New SQL)
-|--------------------------------------------------------------------------
-*/
+/*Summary Data (New SQL)*/
 
 //Total habit entries
 $totalEntriesQuery = $pdo->prepare(
@@ -43,11 +39,7 @@ $habitsThisWeekQuery->execute([$userId, $weekStart]);
 $habitsThisWeek = $habitsThisWeekQuery->fetchColumn();
 
 
-/*
-|--------------------------------------------------------------------------
-| Filtering
-|--------------------------------------------------------------------------
-*/
+/*Filtering*/
 
 $statusFilter = $_GET['status'] ?? 'all';
 $validStatuses = ['all', 'pending', 'completed'];
@@ -56,11 +48,7 @@ if (!in_array($statusFilter, $validStatuses, true)) {
     $statusFilter = 'all';
 }
 
-/*
-|--------------------------------------------------------------------------
-| Sorting (Same as original)
-|--------------------------------------------------------------------------
-*/
+/*Sorting (Same as original)*/
 
 $sort = $_GET['sort'] ?? 'newest';
 $sortOptions = [
@@ -75,11 +63,7 @@ if (!array_key_exists($sort, $sortOptions)) {
 $orderBy = $sortOptions[$sort];
 
 
-/*
-|--------------------------------------------------------------------------
-| Habit records (Modified query for mapping)
-|--------------------------------------------------------------------------
-*/
+/*Habit records (Modified query for mapping)*/
 
 $query =
     'SELECT
@@ -231,11 +215,11 @@ require_once __DIR__ . '/../includes/header.php';
             <tbody>
                 <?php foreach ($habits as $habit): ?>
                     <tr>
-                        <td class="col-habit-name" title="<?= e($habit['habit_name']) ?>">
+                        <td class="col-habit-name">
                             <?= e($habit['habit_name']) ?>
                         </td>
 
-                        <td class="col-frequency" title="<?= e($habit['target_frequency']) ?>">
+                        <td class="col-frequency">
                             <?= e($habit['target_frequency']) ?>
                         </td>
 
