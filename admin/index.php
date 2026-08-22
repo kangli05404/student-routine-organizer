@@ -5,6 +5,183 @@ require_once __DIR__ . '/../includes/auth.php';
 
 requireAdmin();
 
+/*
+|--------------------------------------------------------------------------
+| Export Student Activity Report
+|--------------------------------------------------------------------------
+*/
+
+if (($_GET['export'] ?? '') === 'students') {
+    date_default_timezone_set(
+        'Asia/Kuala_Lumpur'
+    );
+
+    $exportStatement = $pdo->query(
+        "SELECT
+            users.id,
+            users.name,
+            users.email,
+            users.created_at,
+
+            (
+                SELECT COUNT(*)
+                FROM exercise_records
+                WHERE exercise_records.user_id = users.id
+            ) AS exercise_count,
+
+            (
+                SELECT COUNT(*)
+                FROM diary
+                WHERE diary.user_id = users.id
+            ) AS diary_count,
+
+            (
+                SELECT COUNT(*)
+                FROM habits
+                WHERE habits.user_id = users.id
+            ) AS habit_count,
+
+            (
+                SELECT COUNT(*)
+                FROM transactions
+                WHERE transactions.user_id = users.id
+            ) AS transaction_count
+
+         FROM users
+         WHERE users.role = 'student'
+         ORDER BY users.id ASC"
+    );
+
+    $students =
+        $exportStatement->fetchAll();
+
+    $fileName =
+        'student_activity_report_' .
+        date('Y-m-d') .
+        '.csv';
+
+    header(
+        'Content-Type: text/csv; charset=UTF-8'
+    );
+
+    header(
+        'Content-Disposition: attachment; filename="' .
+        $fileName .
+        '"'
+    );
+
+    header(
+        'Cache-Control: no-store, no-cache'
+    );
+
+    header(
+        'X-Content-Type-Options: nosniff'
+    );
+
+    $output =
+        fopen('php://output', 'w');
+
+    if ($output === false) {
+        http_response_code(500);
+
+        exit(
+            'Unable to create the CSV report.'
+        );
+    }
+
+    /*
+     * UTF-8 BOM allows Excel to display
+     * names correctly.
+     */
+    fwrite(
+        $output,
+        "\xEF\xBB\xBF"
+    );
+
+    fputcsv($output, [
+        'Student ID',
+        'Full Name',
+        'Email',
+        'Registered Date',
+        'Exercise Records',
+        'Diary Entries',
+        'Habit Records',
+        'Transactions',
+        'Total Records'
+    ]);
+
+    foreach ($students as $student) {
+        $exerciseCount =
+            (int) $student['exercise_count'];
+
+        $diaryCount =
+            (int) $student['diary_count'];
+
+        $habitCount =
+            (int) $student['habit_count'];
+
+        $transactionCount =
+            (int) $student['transaction_count'];
+
+        $totalRecords =
+            $exerciseCount +
+            $diaryCount +
+            $habitCount +
+            $transactionCount;
+
+        /*
+         * Prevent spreadsheet applications
+         * from interpreting names or emails
+         * as formulas.
+         */
+        $studentName =
+            (string) $student['name'];
+
+        $studentEmail =
+            (string) $student['email'];
+
+        if (
+            preg_match(
+                '/^[=+\-@]/',
+                $studentName
+            )
+        ) {
+            $studentName =
+                "'" . $studentName;
+        }
+
+        if (
+            preg_match(
+                '/^[=+\-@]/',
+                $studentEmail
+            )
+        ) {
+            $studentEmail =
+                "'" . $studentEmail;
+        }
+
+        fputcsv($output, [
+            $student['id'],
+            $studentName,
+            $studentEmail,
+            date(
+                'd M Y',
+                strtotime(
+                    $student['created_at']
+                )
+            ),
+            $exerciseCount,
+            $diaryCount,
+            $habitCount,
+            $transactionCount,
+            $totalRecords
+        ]);
+    }
+
+    fclose($output);
+    exit;
+}
+
 function adminEscape($value)
 {
     return htmlspecialchars(
@@ -156,9 +333,15 @@ require_once __DIR__ . '/../includes/header.php';
             </p>
         </div>
 
-        <span class="user-count">
-            <?= count($users) ?> users
-        </span>
+        <div class="section-actions">
+            <span class="user-count">
+                <?= count($users) ?> users
+            </span>
+
+            <a class="export-button" href="index.php?export=students">
+                Export Student Activity Report
+            </a>
+        </div>
     </div>
 
     <div class="admin-table-wrapper">
