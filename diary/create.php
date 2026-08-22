@@ -7,20 +7,35 @@ requireStudent();
 
 $user_id = (int) $_SESSION['user_id'];
 
+// Default values for initial page load
+$title = '';
+$mood = '';
+$journal_date = date('Y-m-d');
+$content = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $mood = $_POST['mood'];
-    $journal_date = $_POST['journal_date'];
+    $title = trim($_POST['title'] ?? '');
+    $content = trim($_POST['content'] ?? '');
+    $mood = trim($_POST['mood'] ?? '');
+    $journal_date = $_POST['journal_date'] ?? date('Y-m-d');
 
-    try {
-        $stmt = $pdo->prepare("INSERT INTO diary (user_id, title, content, mood, journal_date) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$user_id, $title, $content, $mood, $journal_date]);
+    // Validate date format (Y-m-d) and ensure the year is strictly 4 digits
+    $d = DateTime::createFromFormat('Y-m-d', $journal_date);
+    $dateParts = explode('-', $journal_date);
+    $isValidDate = $d && $d->format('Y-m-d') === $journal_date && isset($dateParts[0]) && strlen($dateParts[0]) === 4;
 
-        header("Location: index.php");
-        exit();
-    } catch (PDOException $e) {
-        $error = "Error saving entry: " . $e->getMessage();
+    if (!$isValidDate) {
+        $error = "Invalid date. Please enter a valid date with a 4-digit year.";
+    } else {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO diary (user_id, title, content, mood, journal_date) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$user_id, $title, $content, $mood, $journal_date]);
+
+            header("Location: index.php");
+            exit();
+        } catch (PDOException $e) {
+            $error = "Error saving entry: " . $e->getMessage();
+        }
     }
 }
 
@@ -67,31 +82,31 @@ $pageStylesheet = 'diary.css';
             <form method="POST" action="create.php" class="diary-form">
                 <div class="form-group">
                     <label>
-                        Title 
+                        Title
                         <small class="char-count" id="titleCount">0/100</small>
                     </label>
-                    <input type="text" name="title" id="titleInput" maxlength="100" class="form-control" required>
+                    <input type="text" name="title" id="titleInput" maxlength="100" class="form-control" value="<?php echo htmlspecialchars($title); ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label>
-                        Mood 
+                        Mood
                         <small class="char-count" id="moodCount">0/30</small>
                     </label>
-                    <input type="text" name="mood" id="moodInput" maxlength="30" placeholder="e.g., Happy, Calm, Stressed" class="form-control" required>
+                    <input type="text" name="mood" id="moodInput" maxlength="30" placeholder="e.g., Happy, Calm, Stressed" class="form-control" value="<?php echo htmlspecialchars($mood); ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="journal_date" value="<?php echo date('Y-m-d'); ?>" class="form-control" required>
+                    <input type="date" name="journal_date" value="<?php echo htmlspecialchars($journal_date); ?>" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label>
-                        Content 
+                        Content
                         <small class="char-count" id="contentCount">0/2000</small>
                     </label>
-                    <textarea name="content" id="contentInput" maxlength="2000" rows="6" class="form-control" required></textarea>
+                    <textarea name="content" id="contentInput" maxlength="2000" rows="6" class="form-control" required><?php echo htmlspecialchars($content); ?></textarea>
                 </div>
 
                 <div class="form-actions">
