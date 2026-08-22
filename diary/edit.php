@@ -9,7 +9,7 @@ if (!isset($_GET['id'])) {
     die('No entry specified.');
 }
 
-$id = $_GET['id'];
+$id = (int) $_GET['id'];
 $user_id = (int) $_SESSION['user_id'];
 
 $stmt = $pdo->prepare("SELECT * FROM diary WHERE id = ? AND user_id = ?");
@@ -20,20 +20,35 @@ if (!$entry) {
     die("Entry not found or unauthorized.");
 }
 
+// Default values fetched from database
+$title = $entry['title'];
+$mood = $entry['mood'];
+$journal_date = $entry['journal_date'];
+$content = $entry['content'];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $mood = $_POST['mood'];
-    $journal_date = $_POST['journal_date'];
+    $title = trim($_POST['title'] ?? '');
+    $content = trim($_POST['content'] ?? '');
+    $mood = trim($_POST['mood'] ?? '');
+    $journal_date = $_POST['journal_date'] ?? $entry['journal_date'];
 
-    try {
-        $update_stmt = $pdo->prepare("UPDATE diary SET title=?, content=?, mood=?, journal_date=? WHERE id=? AND user_id=?");
-        $update_stmt->execute([$title, $content, $mood, $journal_date, $id, $user_id]);
+    // Validate date format (Y-m-d) and ensure the year is strictly 4 digits
+    $d = DateTime::createFromFormat('Y-m-d', $journal_date);
+    $dateParts = explode('-', $journal_date);
+    $isValidDate = $d && $d->format('Y-m-d') === $journal_date && isset($dateParts[0]) && strlen($dateParts[0]) === 4;
 
-        header("Location: index.php");
-        exit();
-    } catch (PDOException $e) {
-        $error = "Error updating entry: " . $e->getMessage();
+    if (!$isValidDate) {
+        $error = "Invalid date. Please enter a valid date with a 4-digit year.";
+    } else {
+        try {
+            $update_stmt = $pdo->prepare("UPDATE diary SET title=?, content=?, mood=?, journal_date=? WHERE id=? AND user_id=?");
+            $update_stmt->execute([$title, $content, $mood, $journal_date, $id, $user_id]);
+
+            header("Location: index.php");
+            exit();
+        } catch (PDOException $e) {
+            $error = "Error updating entry: " . $e->getMessage();
+        }
     }
 }
 
@@ -83,7 +98,7 @@ $pageStylesheet = 'diary.css';
                         Title 
                         <small class="char-count" id="titleCount">0/100</small>
                     </label>
-                    <input type="text" name="title" id="titleInput" maxlength="100" value="<?php echo htmlspecialchars($entry['title']); ?>"
+                    <input type="text" name="title" id="titleInput" maxlength="100" value="<?php echo htmlspecialchars($title); ?>"
                         class="form-control" required>
                 </div>
 
@@ -92,13 +107,13 @@ $pageStylesheet = 'diary.css';
                         Mood 
                         <small class="char-count" id="moodCount">0/30</small>
                     </label>
-                    <input type="text" name="mood" id="moodInput" maxlength="30" value="<?php echo htmlspecialchars($entry['mood']); ?>"
+                    <input type="text" name="mood" id="moodInput" maxlength="30" value="<?php echo htmlspecialchars($mood); ?>"
                         class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="journal_date" value="<?php echo $entry['journal_date']; ?>"
+                    <input type="date" name="journal_date" value="<?php echo htmlspecialchars($journal_date); ?>"
                         class="form-control" required>
                 </div>
 
@@ -108,7 +123,7 @@ $pageStylesheet = 'diary.css';
                         <small class="char-count" id="contentCount">0/2000</small>
                     </label>
                     <textarea name="content" id="contentInput" maxlength="2000" rows="6" class="form-control"
-                        required><?php echo htmlspecialchars($entry['content']); ?></textarea>
+                        required><?php echo htmlspecialchars($content); ?></textarea>
                 </div>
 
                 <div class="form-actions">

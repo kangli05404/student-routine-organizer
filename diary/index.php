@@ -20,7 +20,11 @@ foreach ($entries as $entry) {
     }
 }
 
-$latest_mood = !empty($entries) ? htmlspecialchars($entries[0]['mood']) : 'None';
+// Full mood string for hover title
+$raw_mood = !empty($entries) ? $entries[0]['mood'] : 'None';
+
+// Truncate mood if it exceeds 12 characters to prevent stat card overflow
+$latest_mood = (mb_strlen($raw_mood) > 12) ? mb_substr($raw_mood, 0, 10) . '...' : $raw_mood;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +32,7 @@ $latest_mood = !empty($entries) ? htmlspecialchars($entries[0]['mood']) : 'None'
 |--------------------------------------------------------------------------
 */
 $pageTitle = 'Diary Journal - Student Routine Organizer';
-$activePage = 'diary'; // Activates the yellow navigation highlight
+$activePage = 'diary';
 $pageStylesheet = 'diary.css';
 
 ?>
@@ -121,8 +125,10 @@ $pageStylesheet = 'diary.css';
                             </path>
                         </svg>
                     </div>
-                    <div class="stat-info">
-                        <h2><?php echo $latest_mood; ?></h2>
+                    <div class="stat-info" style="min-width: 0;">
+                        <h2 title="<?php echo htmlspecialchars($raw_mood); ?>" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            <?php echo htmlspecialchars($latest_mood); ?>
+                        </h2>
                         <p>Latest Mood</p>
                     </div>
                 </div>
@@ -134,13 +140,15 @@ $pageStylesheet = 'diary.css';
             <section class="diary-feed">
                 <?php if ($total_entries > 0): ?>
                     <?php foreach ($entries as $row): ?>
-                        <article class="diary-card">
-                            <div class="diary-card-header">
-                                <h3 class="diary-card-title"><?php echo htmlspecialchars($row['title']); ?></h3>
-                                <span class="mood-badge">Mood: <?php echo htmlspecialchars($row['mood']); ?></span>
+                        <article class="diary-card" style="word-wrap: break-word; overflow-wrap: break-word;">
+                            <div class="diary-card-header" style="flex-wrap: wrap; gap: 8px;">
+                                <h3 class="diary-card-title" style="word-break: break-word;"><?php echo htmlspecialchars($row['title']); ?></h3>
+                                <span class="mood-badge" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="Mood: <?php echo htmlspecialchars($row['mood']); ?>">
+                                    Mood: <?php echo htmlspecialchars($row['mood']); ?>
+                                </span>
                             </div>
                             <small class="diary-date"><?php echo $row['journal_date']; ?></small>
-                            <p class="diary-content"><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
+                            <p class="diary-content" style="word-break: break-word;"><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
 
                             <div class="diary-actions">
                                 <a href="edit.php?id=<?php echo $row['id']; ?>" class="action-edit">Edit</a>
