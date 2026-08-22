@@ -8,12 +8,12 @@
 
 /* ---------- Header Frame ---------- */
 .money-header-frame {
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
     border-radius: 13px;
     padding: 40px 20px 20px 20px;
     margin-bottom: 20px;
     background: var(--white);
-    box-shadow: 0 4px 16px rgba(53, 18, 124, 0.08);
+    box-shadow: 0 4px 16px rgba(201, 56, 118, 0.08);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -33,7 +33,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--purple);
+    color: #d94a8b;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -110,14 +110,14 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    box-shadow: 0 3px 12px rgba(53, 18, 124, 0.08);
-    border: 1px solid var(--purple-border);
+    box-shadow: 0 3px 12px rgba(201, 56, 118, 0.08);
+    border: 1px solid #f0d0df;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .money-summary-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(53, 18, 124, 0.14);
+    box-shadow: 0 8px 24px rgba(201, 56, 118, 0.14);
 }
 
 .money-summary-icon {
@@ -198,7 +198,7 @@
 
 /* ---------- Filter ---------- */
 .money-filter-card {
-    background: var(--purple-light);
+    background: #fdf2f6;
     border-radius: 13px;
     padding: 16px 20px;
     margin-bottom: 20px;
@@ -206,7 +206,7 @@
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
     position: relative;
     z-index: 1;
 }
@@ -228,7 +228,7 @@
 
 .money-filter-form select {
     padding: 8px 16px;
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
     border-radius: 8px;
     background: var(--white);
     color: var(--text);
@@ -238,7 +238,7 @@
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 140px;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6187' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2335127c' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     padding-right: 36px;
@@ -246,8 +246,8 @@
 }
 
 .money-filter-form select:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px rgba(99, 56, 201, 0.12);
+    border-color: #d94a8b;
+    box-shadow: 0 0 0 3px rgba(201, 56, 118, 0.12);
 }
 
 .money-reset-button {
@@ -261,8 +261,8 @@
 }
 
 .money-reset-button:hover {
-    background: rgba(99, 56, 201, 0.08);
-    color: var(--purple);
+    background: rgba(201, 56, 118, 0.08);
+    color: #d94a8b;
 }
 
 /* ---------- Records Table ---------- */
@@ -270,7 +270,7 @@
     background: var(--white);
     border-radius: 13px;
     overflow: hidden;
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
     position: relative;
     z-index: 1;
 }
@@ -280,7 +280,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid var(--purple-border);
+    border-bottom: 1px solid #f0d0df;
     flex-wrap: wrap;
     gap: 12px;
 }
@@ -294,7 +294,7 @@
 .money-records-count {
     font-size: 13px;
     color: var(--muted);
-    background: var(--purple-light);
+    background: #fdf2f6;
     padding: 2px 12px;
     border-radius: 20px;
     font-weight: 600;
@@ -313,7 +313,7 @@
 }
 
 .money-table thead {
-    background: var(--purple-light);
+    background: #fdf2f6;
 }
 
 .money-table th {
@@ -321,15 +321,15 @@
     text-align: left;
     font-weight: 700;
     font-size: 12px;
-    color: var(--purple-dark);
+    color: #a62a5c;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--purple-border);
+    border-bottom: 1px solid #f0d0df;
 }
 
 .money-table td {
     padding: 14px 16px;
-    border-bottom: 1px solid #F0ECF7;
+    border-bottom: 1px solid #f7e8ef;
     color: var(--text);
     vertical-align: middle;
 }
@@ -339,7 +339,7 @@
 }
 
 .money-table tbody tr:hover {
-    background: var(--purple-light);
+    background: #fdf2f6;
 }
 
 .money-table tbody tr:last-child td {
@@ -542,8 +542,8 @@
     background: var(--white);
     border-radius: 18px;
     padding: 32px;
-    box-shadow: 0 10px 30px rgba(53, 18, 124, 0.10);
-    border: 1px solid var(--purple-border);
+    box-shadow: 0 10px 30px rgba(201, 56, 118, 0.10);
+    border: 1px solid #f0d0df;
 }
 
 .money-form-card form {
@@ -574,7 +574,7 @@
 .money-form-group textarea {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
     border-radius: 10px;
     background: var(--white);
     color: var(--text);
@@ -587,8 +587,8 @@
 .money-form-group input:focus,
 .money-form-group select:focus,
 .money-form-group textarea:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px rgba(99, 56, 201, 0.12);
+    border-color: #d94a8b;
+    box-shadow: 0 0 0 3px rgba(201, 56, 118, 0.12);
 }
 
 .money-form-group textarea {
@@ -614,7 +614,7 @@
     align-items: center;
     gap: 8px;
     border: none;
-    background: var(--purple);
+    background: #d94a8b;
     color: var(--white);
     padding: 12px 28px;
     border-radius: 999px;
@@ -627,9 +627,9 @@
 }
 
 .money-save-button:hover {
-    background: var(--purple);
+    background: #c93876;
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(107, 70, 193, 0.08);
+    box-shadow: 0 4px 16px rgba(201, 56, 118, 0.08);
 }
 
 .money-cancel-button {
@@ -642,15 +642,15 @@
     border-radius: 999px;
     font-weight: 600;
     font-size: 14px;
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     background: var(--white);
     min-width: 100px;
 }
 
 .money-cancel-button:hover {
-    background: var(--purple-light);
-    border-color: var(--purple);
+    background: #fdf2f6;
+    border-color: #d94a8b;
 }
 
 /* ---------- Error ---------- */
@@ -685,8 +685,8 @@
     border-radius: 18px;
     padding: 40px 36px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(53, 18, 124, 0.10);
-    border: 1px solid var(--purple-border);
+    box-shadow: 0 10px 30px rgba(201, 56, 118, 0.10);
+    border: 1px solid #f0d0df;
 }
 
 .money-warning-icon {
@@ -719,10 +719,10 @@
     max-width: 400px;
     margin: 0 auto 28px;
     text-align: left;
-    background: var(--purple-light);
+    background: #fdf2f6;
     border-radius: 13px;
     padding: 16px 20px;
-    border: 1px solid var(--purple-border);
+    border: 1px solid #f0d0df;
 }
 
 .money-record-summary div {
@@ -730,7 +730,7 @@
     justify-content: space-between;
     gap: 20px;
     padding: 8px 0;
-    border-bottom: 1px solid var(--purple-border);
+    border-bottom: 1px solid #f0d0df;
 }
 
 .money-record-summary div:last-child {
