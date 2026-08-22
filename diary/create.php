@@ -23,6 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Error saving entry: " . $e->getMessage();
     }
 }
+
+/*
+|--------------------------------------------------------------------------
+| Page Settings
+|--------------------------------------------------------------------------
+*/
+$pageTitle = 'Add Entry - Diary Journal';
+$activePage = 'diary';
+$pageStylesheet = 'diary.css';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,15 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Entry - Diary Journal</title>
+    <title><?php echo $pageTitle; ?></title>
     <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="../assets/css/diary.css">
-    <script src="../assets/js/navbar.js" defer></script>
 </head>
 
 <body class="diary-page">
 
-    <div id="navbar"></div>
     <?php
     if (file_exists('../includes/navbar.php')) {
         include '../includes/navbar.php';
@@ -58,25 +66,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <form method="POST" action="create.php" class="diary-form">
                 <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <label>
+                        Title 
+                        <small class="char-count" id="titleCount">0/100</small>
+                    </label>
+                    <input type="text" name="title" id="titleInput" maxlength="100" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Mood</label>
-                    <input type="text" name="mood" placeholder="e.g., Happy, Calm, Stressed" class="form-control"
-                        required>
+                    <label>
+                        Mood 
+                        <small class="char-count" id="moodCount">0/30</small>
+                    </label>
+                    <input type="text" name="mood" id="moodInput" maxlength="30" placeholder="e.g., Happy, Calm, Stressed" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="date" name="journal_date" value="<?php echo date('Y-m-d'); ?>" class="form-control"
-                        required>
+                    <input type="date" name="journal_date" value="<?php echo date('Y-m-d'); ?>" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Content</label>
-                    <textarea name="content" rows="6" class="form-control" required></textarea>
+                    <label>
+                        Content 
+                        <small class="char-count" id="contentCount">0/2000</small>
+                    </label>
+                    <textarea name="content" id="contentInput" maxlength="2000" rows="6" class="form-control" required></textarea>
                 </div>
 
                 <div class="form-actions">
@@ -86,6 +101,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </main>
+
+    <script>
+        function setupCharCounter(inputId, counterId, maxLength) {
+            const input = document.getElementById(inputId);
+            const counter = document.getElementById(counterId);
+
+            if (!input || !counter) return;
+
+            function updateCount() {
+                const currentLength = input.value.length;
+                counter.textContent = `${currentLength}/${maxLength}`;
+
+                if (currentLength >= maxLength) {
+                    counter.style.color = 'var(--danger)';
+                    counter.style.fontWeight = 'bold';
+                } else {
+                    counter.style.color = '#64748b';
+                    counter.style.fontWeight = 'normal';
+                }
+            }
+
+            input.addEventListener('input', updateCount);
+            updateCount();
+        }
+
+        setupCharCounter('titleInput', 'titleCount', 100);
+        setupCharCounter('moodInput', 'moodCount', 30);
+        setupCharCounter('contentInput', 'contentCount', 2000);
+    </script>
 </body>
 
 </html>

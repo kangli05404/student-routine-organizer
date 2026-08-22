@@ -172,6 +172,8 @@ body.diary-page {
     border-left: 6px solid var(--purple-primary);
     box-shadow: 0 4px 15px rgba(107, 70, 193, 0.08);
     transition: all 0.2s ease;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .diary-card:hover {
@@ -186,6 +188,7 @@ body.diary-page {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 6px;
+    gap: 15px;
 }
 
 .diary-card-title {
@@ -193,6 +196,9 @@ body.diary-page {
     color: var(--purple-dark);
     font-size: 1.25rem;
     font-weight: 800;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 .mood-badge {
@@ -203,6 +209,7 @@ body.diary-page {
     font-size: 0.85rem;
     font-weight: 700;
     box-shadow: 0 2px 6px rgba(124, 58, 237, 0.1);
+    flex-shrink: 0;
 }
 
 .diary-date {
@@ -218,6 +225,8 @@ body.diary-page {
     margin-bottom: 18px;
     white-space: pre-line;
     color: #334155;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Stylized Action Buttons */
@@ -313,6 +322,16 @@ body.diary-page {
     font-weight: 700;
     color: #35127c;
     font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Character Counter Text */
+.char-count {
+    color: #64748b;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
 .form-control {
