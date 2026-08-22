@@ -120,69 +120,73 @@ $pageStylesheet = 'habit.css';
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<section class="habit-header-centered">
-    <div class="header-box">
+<!-- ================= UPPER SECTION (BACKGROUND PICTURE) ================= -->
+<div class="habit-upper-wrapper">
+    <section class="habit-header-centered">
+        <div class="header-box">
 
 
-        <h1>My Habit Tracker</h1>
+            <h1>My Habit Tracker</h1>
 
-        <p class="page-description">Keep track of your daily routines, frequencies, and completion progress.</p>
-    </div>
-
-    <a class="btn-add-golden" href="create.php">+ Add New Habit</a>
-</section>
-
-<section class="summary-cards">
-    <!-- Card 1: Total Entries -->
-    <article class="summary-card purple-card">
-        <div class="card-icon-wrapper">
-            <!-- Icon placeholder: Trophy -->
-            <img src="../assets/images/total-entry.jpg" alt="Total entry Icon">
+            <p class="page-description">Keep track of your daily routines, frequencies, and completion progress.</p>
         </div>
-        <div class="card-data">
-            <span class="card-value"><?= e($totalEntries) ?></span>
-            <span class="card-label">Total Entries</span>
-        </div>
-    </article>
 
-    <!-- Card 2: Completed Entries -->
-    <article class="summary-card blue-card">
-        <div class="card-icon-wrapper">
-            <!-- Icon placeholder: Clock/Timer -->
-            <img src="../assets/images/complete.png" alt="Completions Icon">
-        </div>
-        <div class="card-data">
-            <span class="card-value"><?= e($totalCompleted) ?></span>
-            <span class="card-label">Completions</span>
-        </div>
-    </article>
+        <a class="btn-add-golden" href="create.php">+ Add New Habit</a>
+    </section>
 
-    <!-- Card 3: Total Types -->
-    <article class="summary-card orange-card">
-        <div class="card-icon-wrapper">
-            <!-- Icon placeholder: Open Book -->
-            <img src="../assets/images/number.png" alt="Habit Types Icon">
-        </div>
-        <div class="card-data">
-            <span class="card-value"><?= e($totalTypes) ?></span>
-            <span class="card-label">Unique Habits</span>
-        </div>
-    </article>
+    <section class="summary-cards">
+        <!-- Card 1: Total Entries -->
+        <article class="summary-card purple-card">
+            <div class="card-icon-wrapper">
+                <!-- Icon placeholder: Trophy -->
+                <img src="../assets/images/total-entry.jpg" alt="Total entry Icon">
+            </div>
+            <div class="card-data">
+                <span class="card-value"><?= e($totalEntries) ?></span>
+                <span class="card-label">Total Entries</span>
+            </div>
+        </article>
 
-    <!-- Card 4: Habits This Week -->
-    <article class="summary-card green-card">
-        <div class="card-icon-wrapper">
-            <!-- Icon placeholder: Calendar/Checkmark -->
-            <img src="../assets/images/week.jpg" alt="Week Icon">
-        </div>
-        <div class="card-data">
-            <span class="card-value"><?= e($habitsThisWeek) ?></span>
-            <span class="card-label">Entries This Week</span>
-        </div>
-    </article>
-</section>
+        <!-- Card 2: Completed Entries -->
+        <article class="summary-card blue-card">
+            <div class="card-icon-wrapper">
+                <!-- Icon placeholder: Clock/Timer -->
+                <img src="../assets/images/complete.png" alt="Completions Icon">
+            </div>
+            <div class="card-data">
+                <span class="card-value"><?= e($totalCompleted) ?></span>
+                <span class="card-label">Completions</span>
+            </div>
+        </article>
 
+        <!-- Card 3: Total Types -->
+        <article class="summary-card orange-card">
+            <div class="card-icon-wrapper">
+                <!-- Icon placeholder: Open Book -->
+                <img src="../assets/images/number.png" alt="Habit Types Icon">
+            </div>
+            <div class="card-data">
+                <span class="card-value"><?= e($totalTypes) ?></span>
+                <span class="card-label">Unique Habits</span>
+            </div>
+        </article>
 
+        <!-- Card 4: Habits This Week -->
+        <article class="summary-card green-card">
+            <div class="card-icon-wrapper">
+                <!-- Icon placeholder: Calendar/Checkmark -->
+                <img src="../assets/images/week.jpg" alt="Week Icon">
+            </div>
+            <div class="card-data">
+                <span class="card-value"><?= e($habitsThisWeek) ?></span>
+                <span class="card-label">Entries This Week</span>
+            </div>
+        </article>
+    </section>
+</div>
+
+<!-- ================= LOWER SECTION (NO BACKGROUND PICTURE) ================= -->
+<div class="habit-lower-wrapper">
 <?php if (!$habits): ?>
     <div class="empty-state card">
         <h2>No habits yet</h2>
@@ -268,5 +272,6 @@ require_once __DIR__ . '/../includes/header.php';
     </div>
 
 <?php endif; ?>
+</div>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

@@ -82,10 +82,10 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="form-page-header">
-    <h1>Add Habit</h1>
-    <p>
-        Set up a new habit you want to build.
-    </p>
+    <div class="header-box">    
+        <h1>Add Habit</h1>
+        <p>Set up a new habit you want to build.</p>
+    </div>
 </section>
 
 <?php if ($errors): ?>

@@ -41,31 +41,21 @@ if (!$habit) {
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // ... (Your original edit.php handler logic remains exactly the same) ...
-    $habitName =
-        trim($_POST['habit_name'] ?? '');
-
-    $targetFrequency =
-        trim($_POST['target_frequency'] ?? '');
-
-    $completionStatus =
-        trim($_POST['completion_status'] ?? 'pending');
-
-    $habitDate =
-        trim($_POST['habit_date'] ?? '');
+    $habitName = trim($_POST['habit_name'] ?? '');
+    $targetFrequency = trim($_POST['target_frequency'] ?? '');
+    $completionStatus = trim($_POST['completion_status'] ?? 'pending');
+    $habitDate = trim($_POST['habit_date'] ?? '');
 
     if ($habitName === '') {
         $errors[] = 'Habit name is required.';
     } elseif (strlen($habitName) > 100) {
-        $errors[] =
-            'Habit name cannot exceed 100 characters.';
+        $errors[] = 'Habit name cannot exceed 100 characters.';
     }
 
     if ($targetFrequency === '') {
         $errors[] = 'Target frequency is required.';
     } elseif (strlen($targetFrequency) > 50) {
-        $errors[] =
-            'Target frequency cannot exceed 50 characters.';
+        $errors[] = 'Target frequency cannot exceed 50 characters.';
     }
 
     if (!in_array($completionStatus, ['pending', 'completed'], true)) {
@@ -82,19 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $validDate->format('Y-m-d') !== $habitDate
     ) {
         $errors[] = 'Please enter a valid date.';
-    }
-
-    if (!$errors) {
-        $hasChanges =
-            $habitName !== $habit['habit_name']
-            || $targetFrequency !== $habit['target_frequency']
-            || $completionStatus !== $habit['completion_status']
-            || $habitDate !== $habit['habit_date'];
-
-        if (!$hasChanges) {
-            $errors[] =
-                'No changes detected. Please update at least one field.';
-        }
     }
 
     if (!$errors) {
@@ -135,10 +112,10 @@ require_once __DIR__ . '/../includes/header.php';
 ?>
 
 <section class="form-page-header">
-    <h1>Edit Habit</h1>
-    <p>
-        Update the details of your selected habit.
-    </p>
+    <div class="header-box">    
+        <h1>Edit Habit</h1>
+        <p>Update the details of your selected habit.</p>
+    </div>
 </section>
 
 <?php if ($errors): ?>
