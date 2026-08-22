@@ -120,7 +120,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 <?php if ($errors): ?>
     <div class="error-message" role="alert">
-        <strong>Please correct the following:</strong>
+        <strong>An incorrect information is entered</strong>
         <ul>
             <?php foreach ($errors as $error): ?>
                 <li>

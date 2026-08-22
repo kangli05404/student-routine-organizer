@@ -144,9 +144,6 @@ p {
     color: #4b5563;
     margin: 0;
 }
-/* =====================================================
-   ADD HABIT BUTTON
-===================================================== */
 
 /* =====================================================
    ADD HABIT BUTTON
@@ -403,16 +400,14 @@ p {
     text-align: center !important;
 }
 
-/* Long, unbreakable text (e.g. a habit name typed with
-   no spaces) would otherwise overflow past its column's
-   fixed width and visually bleed into the next column.
-   Truncate with an ellipsis instead; the full text is
-   still available via the title="" tooltip. */
+/* Both habit name and frequency now wrap instead of
+   truncating, so the full text is always visible without
+   needing to hover. */
 .col-habit-name,
 .col-frequency {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .col-habit-name {
@@ -641,6 +636,77 @@ p {
     box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14);
 }
 
+
+/* =====================================================
+   VALIDATION ERROR MESSAGE (create.php / edit.php)
+   Matches structure:
+   <div class="error-message" role="alert">
+       <strong>Please correct the following:</strong>
+       <ul><li>...</li></ul>
+   </div>
+   Palette matches the delete-page reds already used
+   below (#fecdd3 / #fee2e2 / #9f1239) for consistency.
+===================================================== */
+
+.error-message {
+    max-width: 760px;
+    margin: 0 auto 20px auto;
+    padding: 16px 20px;
+
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+
+    border: 1px solid #fecdd3;
+    border-left: 4px solid #ef4444;
+    border-radius: 10px;
+
+    background: #fff8f8;
+    color: #9f1239;
+
+    line-height: 1.5;
+    text-align: left;
+}
+
+.error-message::before {
+    content: '!';
+    flex-shrink: 0;
+
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.error-message strong {
+    display: block;
+    margin-bottom: 6px;
+
+    color: #851e3e;
+    font-weight: 700;
+}
+
+.error-message ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.error-message li {
+    margin-bottom: 2px;
+}
+
+
 .form-actions {
     display: flex;
     justify-content: center;
@@ -826,4 +892,3 @@ p {
     transform: translateY(-1px);
     box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
 }
-
