@@ -120,14 +120,6 @@ require_once __DIR__ . '/../includes/header.php';
                         ENT_QUOTES,
                         'UTF-8'
                     ) ?>" required>
-
-                <datalist id="habit_suggestions">
-                    <option value="Drink 2L Water">
-                    <option value="Read 20 Pages">
-                    <option value="Sleep Before 11pm">
-                    <option value="Meditate">
-                    <option value="No Junk Food">
-                </datalist>
             </div>
 
             <div class="form-group">
