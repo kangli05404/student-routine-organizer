@@ -9,7 +9,7 @@
     --danger: #e53e3e;
 }
 
-body.diary-page {
+body {
     background-color: #f7f5fb;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
@@ -389,4 +389,27 @@ body.diary-page {
 .btn-cancel:hover {
     background-color: rgba(107, 70, 193, 0.1);
     color: #2e1065;
+}
+
+.latest-mood {
+    min-width: 0;
+}
+
+.latest-mood h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.diary-success {
+    margin-bottom: 24px;
+    padding: 16px 20px;
+
+    border: 1px solid #86d9a8;
+    border-radius: 12px;
+
+    background: #eafaf1;
+    color: #087443;
+
+    font-weight: 600;
 }
