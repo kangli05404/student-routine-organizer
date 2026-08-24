@@ -124,5 +124,3 @@ student-routine-organizer/
 ├── profile.php
 ├── register.php
 └── README.md
-```
-24 Aug 2026 - 12.55 am - 我不行了，做到要吐了 - WONG
